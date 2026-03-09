@@ -16,7 +16,6 @@ const navItems = [
   { name: "Design", link: "#design" },
   { name: "Experience", link: "#experience" },
   { name: "Services", link: "#services" },
-  { name: "Contact", link: "#contact" },
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -140,10 +139,11 @@ export default function Home() {
               <span className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground block mb-3">Portfolio Visuals</span>
               <h2 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-[0.9]">Gallery</h2>
             </div>
-            <span className="text-muted-foreground text-sm font-bold hidden md:block italic">Visual Concepts · Flyers · Analytics</span>
+            <span className="text-muted-foreground text-sm font-bold hidden md:block italic">Branding · Automation · Campaigns · Interfaces</span>
           </motion.div>
 
-          <div className="h-[auto] min-h-[100rem] md:min-h-[60rem] w-full">
+          {/* 7-row grid: 7 × 18rem rows + gaps ≈ 140rem on desktop */}
+          <div className="w-full min-h-[140rem] md:min-h-[140rem]">
             <LayoutGrid cards={galleryGridCards} />
           </div>
         </div>
