@@ -2,8 +2,18 @@
 // Optimized for Landscape (16:9) display.
 export const projectsData = [
     {
+        id: "brand-strategy-project",
+        category: "Brand & Strategy",
+        title: "Hybrid Performance Club · Brand Direction",
+        description:
+            "Dirección estratégica completa de marca: posicionamiento, identidad visual, sistema gráfico, contenido Instagram bilingüe y arquitectura digital de captación de leads.",
+        tech: ["Brand Strategy", "Content Direction", "Lead Automation", "Visual Identity"],
+        link: "http://hybrydwaitlist.web.app/",
+        src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773099488/Screenshot_2025-12-01_at_13.42.12_gojw8e.png",
+    },
+    {
         id: "buborant",
-        category: "System",
+        category: "System · F&B",
         title: "QR Table Ordering · Buborant",
         description:
             "Sistema que automatiza pedidos escaneando un QR en mesa. Accede al menú digital y envío de pedidos a cocina/sistema interno.",
@@ -13,7 +23,7 @@ export const projectsData = [
     },
     {
         id: "bubo-beach",
-        category: "Website",
+        category: "Website · Hospitality",
         title: "Bubó Beach · Reservation",
         description:
             "Interfaz digital desarrollada para restaurante y beach venue. Presentación visual clara y experiencia de reserva online.",
@@ -23,7 +33,7 @@ export const projectsData = [
     },
     {
         id: "my-lounge",
-        category: "Website",
+        category: "Website · Hospitality",
         title: "My Lounge Palmanova",
         description:
             "Landing page orientada a reservas y visibilidad digital para clientes internacionales.",
@@ -33,7 +43,7 @@ export const projectsData = [
     },
     {
         id: "gym-tonic-app",
-        category: "Mobile App",
+        category: "Mobile App · Fitness",
         title: "Gym Tonic App",
         description:
             "App móvil para gestión de gimnasio: reservas de clases y comunicación directa.",
@@ -47,33 +57,33 @@ export const projectsData = [
 export const servicesData = [
     {
         title: "AI Automation",
-        description: "Bots de WhatsApp y workflows que responden clientes y automatizan reservas.",
-        tag: "Automation",
+        description: "Chatbots multilingues y workflows que automatizan respuestas, reservas y captación de leads 24/7.",
+        tag: "desde €1,500",
     },
     {
         title: "Hospitality Systems",
-        description: "Infraestructuras digitales completas que simplifican operaciones de venues VIP.",
-        tag: "Product",
+        description: "Infraestructuras digitales completas que simplifican operaciones de venues VIP y F&B.",
+        tag: "desde €899",
     },
     {
         title: "Creative Branding",
-        description: "Identidad visual y materiales gráficos para proyectos digitales y físicos.",
-        tag: "Design",
+        description: "Identidad visual completa: logo, sistema tipográfico, formatos digitales y guía de marca.",
+        tag: "desde €2,500",
     },
     {
         title: "Webs & Platforms",
-        description: "Interfaces premium diseñadas para transformar operaciones en sistemas gestionables.",
-        tag: "Architecture",
+        description: "Interfaces premium con analytics integrados, gestión de contenido y arquitectura escalable.",
+        tag: "desde €3,200",
     },
     {
-        title: "Digital Menus",
-        description: "Sistemas dinámicos con QR, optimizados para móvil y actualización rápida.",
-        tag: "F&B",
+        title: "Digital Menus & QR",
+        description: "Sistemas NFC/QR dinámicos, actualizables en tiempo real y optimizados para móvil.",
+        tag: "€199 – €499",
     },
     {
-        title: "Content Creation",
-        description: "Storytelling visual y conceptos para campañas de marcas de estilo de vida.",
-        tag: "Content",
+        title: "Strategic Consulting",
+        description: "Diagnóstico de procesos, roadmap de automatización y acompañamiento en toma de decisiones.",
+        tag: "desde €200",
     },
 ];
 

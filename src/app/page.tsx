@@ -27,6 +27,31 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.55, delay, ease: EASE },
 });
 
+const brandValues = [
+  { word: "Clarity", def: "Understanding comes before code. Every automation begins with a thorough diagnostic phase." },
+  { word: "Precision", def: "Generic solutions create generic results. We craft bespoke systems aligned to your workflows." },
+  { word: "Integrity", def: "Your data stays yours. Full transparency in how information is processed and stored." },
+  { word: "Empowerment", def: "We don't create dependencies — we build capabilities, with training and documentation." },
+];
+
+const blogPosts = [
+  {
+    tag: "AI · Hospitality",
+    title: "Por qué los negocios de hospitalidad necesitan AI ahora",
+    body: "El 80% de las consultas repetitivas en venues premium pueden automatizarse sin perder el toque humano. Chatbots multilingues, reservas autónomas y respuestas instantáneas son hoy el estándar en mercados como Dubai o Marbella.",
+  },
+  {
+    tag: "Automation · Leads",
+    title: "Cómo un workflow automatizado multiplica tus leads",
+    body: "Un sistema de captación bien diseñado no solo recoge datos — califica, segmenta y responde en segundos. Nuestros clientes han triplicado su generación de leads sin aumentar el equipo comercial.",
+  },
+  {
+    tag: "Brand · Strategy",
+    title: "Branding con propósito: por qué el diseño convierte",
+    body: "Una identidad visual coherente no es estética — es conversión. Marcas con sistema visual unificado generan un 45% más de engagement y reducen el tiempo de decisión del cliente.",
+  },
+];
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden transition-colors duration-500">
@@ -35,14 +60,13 @@ export default function Home() {
 
       {/* ── HERO ─────────────────────────────────────────── */}
       <section className="relative min-h-screen flex flex-col justify-end px-6 md:px-14 pb-16 pt-32 border-b border-border overflow-hidden">
-        {/* Dynamic Galaxy Background */}
         <div className="absolute inset-0 z-0 opacity-40 dark:opacity-60 pointer-events-none">
           <Galaxy
             density={0.8}
             speed={0.4}
             glowIntensity={0.2}
             twinkleIntensity={0.4}
-            hueShift={210} // Neutral tech blue
+            hueShift={210}
             mouseInteraction={true}
           />
         </div>
@@ -88,8 +112,11 @@ export default function Home() {
           <span>{bioData.contact.location}</span>
           <a href={`mailto:${bioData.contact.email}`} className="hover:text-foreground transition-colors">{bioData.contact.email}</a>
           <a href={bioData.contact.whatsapp} target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">{bioData.contact.phone}</a>
+          <a href={bioData.contact.pitchDeck} target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors border border-border px-3 py-1 rounded-full">
+            Pitch Deck →
+          </a>
           <span className="ml-auto hidden md:block">
-            <a href="#work" className="flex items-center gap-2 text-black/60 hover:text-black transition-colors">
+            <a href="#work" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
               Scroll to work
               <motion.span animate={{ y: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>↓</motion.span>
             </a>
@@ -112,6 +139,63 @@ export default function Home() {
         ))}
       </section>
 
+      {/* ── ABOUT / BRAND ───────────────────────────────── */}
+      <section className="py-24 px-6 md:px-14 border-b border-border bg-background">
+        <div className="max-w-7xl mx-auto">
+          <motion.div {...fadeUp()} className="mb-16">
+            <span className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground block mb-3">The Approach</span>
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none">
+              Confusion
+              <span className="text-foreground/20 mx-4">→</span>
+              Clarity
+              <span className="text-foreground/20 mx-4">→</span>
+              Automation
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-6 mb-16">
+            <motion.div {...fadeUp(0.1)} className="p-8 border border-border rounded-3xl">
+              <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-3">Mission</p>
+              <p className="text-lg font-bold leading-relaxed">Help organizations automate responsibly — with full transparency and measurable outcomes.</p>
+            </motion.div>
+            <motion.div {...fadeUp(0.2)} className="p-8 border border-border rounded-3xl">
+              <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-3">Vision</p>
+              <p className="text-lg font-bold leading-relaxed">Redefine how companies experience digital transformation across Europe, with strategic focus on Dubai and the UAE.</p>
+            </motion.div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {brandValues.map((v, i) => (
+              <motion.div key={v.word} {...fadeUp(i * 0.08)} className="p-6 border border-border rounded-2xl hover:bg-foreground hover:text-background transition-all group">
+                <p className="font-black text-lg mb-2 group-hover:text-background">{v.word}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed group-hover:text-background/60">{v.def}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CLIENT LOGOS ────────────────────────────────── */}
+      <section className="py-16 px-6 md:px-14 border-b border-border">
+        <motion.div {...fadeUp()} className="mb-10">
+          <span className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground">Clients & Collaborations</span>
+        </motion.div>
+        <div className="flex flex-wrap items-center gap-6 md:gap-10">
+          {bioData.clientLogos.map((logo, i) => (
+            <motion.div
+              key={logo.name}
+              {...fadeUp(i * 0.07)}
+              className="flex items-center gap-3 opacity-40 hover:opacity-100 transition-opacity group"
+            >
+              <div className="w-10 h-10 rounded-xl border border-border flex items-center justify-center text-xs font-black tracking-tight group-hover:bg-foreground group-hover:text-background transition-all">
+                {logo.initials}
+              </div>
+              <span className="text-xs font-black uppercase tracking-widest text-muted-foreground hidden md:block">{logo.name}</span>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
       {/* ── FEATURED WORK ───────────────────────────────── */}
       <section id="work" className="py-24 px-6 md:px-14 border-b border-border">
         <motion.div {...fadeUp()} className="flex items-baseline justify-between mb-16">
@@ -126,8 +210,6 @@ export default function Home() {
 
       {/* ── VISUAL GALLERY EXHIBITION ───────────────────── */}
       <section id="design" className="relative border-b border-border bg-black text-white overflow-hidden">
-
-        {/* ── ScrollReveal text block ── */}
         <div className="px-6 md:px-14 pt-24 pb-8 max-w-5xl">
           <motion.div {...fadeUp()} className="mb-4">
             <span className="text-xs font-black uppercase tracking-[0.3em] text-white/30 block mb-6">
@@ -148,7 +230,6 @@ export default function Home() {
           </ScrollReveal>
         </div>
 
-        {/* ── Full-section ImageTrail ── */}
         <div className="relative w-full h-[70vh] md:h-[80vh] overflow-hidden cursor-crosshair">
           <div className="absolute inset-x-6 md:inset-x-14 top-6 flex items-center justify-between z-20 pointer-events-none select-none">
             <span className="text-[10px] font-black uppercase tracking-[0.35em] text-white/20">Move cursor to explore</span>
@@ -158,7 +239,6 @@ export default function Home() {
           <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-black/80 to-transparent pointer-events-none z-10" />
         </div>
 
-        {/* ── Category legend ── */}
         <div className="px-6 md:px-14 py-8 border-t border-white/10 flex flex-wrap gap-x-8 gap-y-2">
           {["Web & App Design", "AI Automation", "Branding", "Marketing", "Dashboards", "Content Creation", "Analytics", "Hospitality"].map((cat) => (
             <span key={cat} className="text-[10px] font-black uppercase tracking-[0.3em] text-white/25">{cat}</span>
@@ -213,13 +293,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── SKILLS ──────────────────────────────────────── */}
+      {/* ── SKILLS + EDUCATION ──────────────────────────── */}
       <section className="py-24 px-6 md:px-14 border-b border-border">
         <motion.div {...fadeUp()} className="mb-16">
           <span className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground block mb-3">Capabilities</span>
           <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase">Skills</h2>
         </motion.div>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-3 mb-16">
           {bioData.skills.map((s, i) => (
             <motion.span
               key={s}
@@ -230,6 +310,19 @@ export default function Home() {
             </motion.span>
           ))}
         </div>
+
+        {/* Education */}
+        <motion.div {...fadeUp(0.2)}>
+          <span className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground block mb-6">Education & Certifications</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {bioData.education.map((e, i) => (
+              <motion.div key={e.title} {...fadeUp(i * 0.08)} className="p-5 border border-border rounded-2xl">
+                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2">{e.issuer} · {e.year}</p>
+                <p className="font-black text-sm leading-snug">{e.title}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </section>
 
       {/* ── SERVICES BENTO ──────────────────────────────── */}
@@ -255,6 +348,52 @@ export default function Home() {
             />
           ))}
         </BentoGrid>
+      </section>
+
+      {/* ── TESTIMONIALS ────────────────────────────────── */}
+      <section className="py-24 px-6 md:px-14 border-b border-border bg-background">
+        <motion.div {...fadeUp()} className="mb-16">
+          <span className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground block mb-3">Results</span>
+          <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase">Impact</h2>
+        </motion.div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {bioData.testimonials.map((t, i) => (
+            <motion.div
+              key={t.metric}
+              {...fadeUp(i * 0.1)}
+              className="p-8 border border-border rounded-3xl flex flex-col justify-between gap-6 hover:bg-foreground hover:text-background transition-all group"
+            >
+              <div>
+                <span className="text-6xl font-black tracking-tighter block mb-1">{t.metric}</span>
+                <span className="text-xs font-black uppercase tracking-widest text-muted-foreground group-hover:text-background/50">{t.label}</span>
+              </div>
+              <p className="text-sm font-bold leading-relaxed text-foreground/70 group-hover:text-background/70 italic">&quot;{t.quote}&quot;</p>
+              <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-background/40">— {t.source}</span>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── BLOG / INSIGHTS ─────────────────────────────── */}
+      <section className="py-24 px-6 md:px-14 border-b border-border bg-background">
+        <motion.div {...fadeUp()} className="mb-16">
+          <span className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground block mb-3">Knowledge</span>
+          <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase">Insights</h2>
+        </motion.div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {blogPosts.map((post, i) => (
+            <motion.div
+              key={post.title}
+              {...fadeUp(i * 0.1)}
+              className="p-8 border border-border rounded-3xl flex flex-col gap-4 hover:bg-foreground hover:text-background transition-all group cursor-default"
+            >
+              <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-background/50">{post.tag}</span>
+              <h3 className="font-black text-lg leading-snug">{post.title}</h3>
+              <p className="text-sm text-foreground/60 group-hover:text-background/60 leading-relaxed font-medium flex-1">{post.body}</p>
+              <span className="text-xs font-black uppercase tracking-widest text-foreground/30 group-hover:text-background/30 mt-2">Business Bots Solutions · 2026</span>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       {/* ── INQUIRY & PLATFORMS ────────────────────────── */}
@@ -287,14 +426,18 @@ export default function Home() {
             <p className="text-sm font-medium text-muted-foreground group-hover:text-background/50">Tell us about your requirements.</p>
           </motion.a>
 
-          <motion.div
-            {...fadeUp(0.3)}
-            className="space-y-4"
-          >
+          <motion.div {...fadeUp(0.3)} className="space-y-4">
+            <a
+              href={bioData.contact.pitchDeck}
+              target="_blank" rel="noreferrer"
+              className="block p-6 bg-foreground text-background rounded-2xl hover:bg-foreground/90 transition-all text-center font-black uppercase tracking-widest text-xs"
+            >
+              View Pitch Deck →
+            </a>
             <a
               href="http://hybrydwaitlist.web.app/"
               target="_blank" rel="noreferrer"
-              className="block p-6 bg-foreground text-background rounded-2xl hover:bg-foreground/90 transition-all text-center font-black uppercase tracking-widest text-xs"
+              className="block p-6 border border-border rounded-2xl hover:bg-foreground hover:text-background transition-all text-center font-black uppercase tracking-widest text-xs"
             >
               HYBRYD Waitlist
             </a>
@@ -357,11 +500,23 @@ export default function Home() {
                 </div>
                 <span className="text-2xl group-hover:translate-x-2 transition-transform">→</span>
               </a>
+              <a
+                href={bioData.contact.pitchDeck}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex items-center justify-between p-6 border border-white/10 rounded-2xl hover:bg-white hover:text-black transition-all"
+              >
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-white/40 group-hover:text-black/40 mb-1">Pitch Deck</p>
+                  <p className="font-black text-xl">Business Overview →</p>
+                </div>
+                <span className="text-2xl group-hover:translate-x-2 transition-transform">→</span>
+              </a>
             </motion.div>
 
             <motion.div {...fadeUp(0.2)} className="flex flex-col justify-between">
               <p className="text-white/50 text-lg leading-relaxed font-bold italic">
-                &quot;El enfoque no es crear tecnología aislada, sino sistemas digitales que simplifiquen operaciones y mejoren la experiencia del cliente.&quot;
+                &quot;Automation with purpose, clarity as principle.&quot;
               </p>
               <div className="mt-8 pt-8 border-t border-white/10 flex items-center justify-between text-xs font-bold uppercase tracking-widest text-white/20">
                 <span>© 2026 Elias J Perez</span>
