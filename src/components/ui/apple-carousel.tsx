@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState, useEffect, useId } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 
@@ -117,11 +118,15 @@ function CarouselCard({ card, isDragging }: { card: CardData; isDragging: boolea
                                             className="absolute inset-0 bg-cover bg-center blur-3xl opacity-20 saturate-150 scale-110"
                                             style={{ backgroundImage: `url(${card.src})` }}
                                         />
-                                        <img
-                                            src={card.src}
-                                            alt={card.title}
-                                            className="relative z-10 w-full h-full object-contain"
-                                        />
+                                        <div className="relative z-10 w-full h-full">
+                                            <Image
+                                                src={card.src}
+                                                alt={card.title}
+                                                fill
+                                                sizes="(min-width: 1024px) 50vw, 100vw"
+                                                className="object-contain"
+                                            />
+                                        </div>
                                     </>
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-6xl" style={{ background: fallbackGradient }}>
@@ -177,12 +182,16 @@ function CarouselCard({ card, isDragging }: { card: CardData; isDragging: boolea
                                 className="absolute inset-0 bg-cover bg-center blur-3xl opacity-20 saturate-150 scale-110"
                                 style={{ backgroundImage: `url(${card.src})` }}
                             />
-                            <img
-                                src={card.src}
-                                alt={card.title}
-                                className="relative z-10 w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
-                                draggable={false}
-                            />
+                            <div className="relative z-10 w-full h-full">
+                                <Image
+                                    src={card.src}
+                                    alt={card.title}
+                                    fill
+                                    sizes="(min-width: 1024px) 25vw, 90vw"
+                                    className="object-contain transition-transform duration-700 group-hover:scale-105"
+                                    draggable={false}
+                                />
+                            </div>
                         </>
                     ) : (
                         <div className="w-full h-full flex items-center justify-center text-5xl" style={{ background: fallbackGradient }}>

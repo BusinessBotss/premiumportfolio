@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @typescript-eslint/no-explicit-any, react-hooks/unsupported-syntax, prefer-const */
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import './image-trail.css';

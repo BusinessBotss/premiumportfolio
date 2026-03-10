@@ -3,13 +3,14 @@
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import { AppleCarousel } from "@/components/ui/apple-carousel";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import { LayoutGrid } from "@/components/ui/layout-grid";
-import { projectsData, servicesData, galleryGridCards } from "@/data/projects";
+import { projectsData, servicesData, galleryImages } from "@/data/projects";
 import { bioData, type ExperienceEntry } from "@/data/bio";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { motion } from "motion/react";
+import Image from "next/image";
 import Galaxy from "@/components/ui/galaxy";
 import ImageTrail from "@/components/ui/image-trail";
+import ScrollReveal from "@/components/ui/scroll-reveal";
 
 const navItems = [
   { name: "Work", link: "#work" },
@@ -124,28 +125,44 @@ export default function Home() {
       </section>
 
       {/* ── VISUAL GALLERY EXHIBITION ───────────────────── */}
-      <section id="design" className="relative py-24 px-6 md:px-14 border-b border-border bg-background overflow-hidden">
-        {/* Interactive Image Trail Background Layer */}
-        <div className="absolute inset-0 z-0 opacity-10 pointer-events-none sm:pointer-events-auto">
-          <ImageTrail
-            items={galleryGridCards.map(c => c.thumbnail)}
-            variant={6}
-          />
+      <section id="design" className="relative border-b border-border bg-black text-white overflow-hidden">
+
+        {/* ── ScrollReveal text block ── */}
+        <div className="px-6 md:px-14 pt-24 pb-8 max-w-5xl">
+          <motion.div {...fadeUp()} className="mb-4">
+            <span className="text-xs font-black uppercase tracking-[0.3em] text-white/30 block mb-6">
+              Business Bots Visual Gallery
+            </span>
+          </motion.div>
+          <ScrollReveal
+            baseOpacity={0.07}
+            enableBlur
+            baseRotation={2}
+            blurStrength={7}
+            textClassName="text-white"
+            containerClassName="text-white"
+            wordAnimationEnd="bottom center"
+            rotationEnd="bottom center"
+          >
+            Webs. Apps. Branding. Automation. Campaigns. Interfaces. AI Agents. Dashboards. Digital Menus. Content. Analytics. Hospitality. Music. 3D. Visual Direction.
+          </ScrollReveal>
         </div>
 
-        <div className="relative z-10">
-          <motion.div {...fadeUp()} className="flex items-baseline justify-between mb-12">
-            <div>
-              <span className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground block mb-3">Portfolio Visuals</span>
-              <h2 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-[0.9]">Gallery</h2>
-            </div>
-            <span className="text-muted-foreground text-sm font-bold hidden md:block italic">Branding · Automation · Campaigns · Interfaces</span>
-          </motion.div>
-
-          {/* 7-row grid: 7 × 18rem rows + gaps ≈ 140rem on desktop */}
-          <div className="w-full min-h-[140rem] md:min-h-[140rem]">
-            <LayoutGrid cards={galleryGridCards} />
+        {/* ── Full-section ImageTrail ── */}
+        <div className="relative w-full h-[70vh] md:h-[80vh] overflow-hidden cursor-crosshair">
+          <div className="absolute inset-x-6 md:inset-x-14 top-6 flex items-center justify-between z-20 pointer-events-none select-none">
+            <span className="text-[10px] font-black uppercase tracking-[0.35em] text-white/20">Move cursor to explore</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.35em] text-white/20">32 works</span>
           </div>
+          <ImageTrail items={galleryImages} variant={6} />
+          <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-black/80 to-transparent pointer-events-none z-10" />
+        </div>
+
+        {/* ── Category legend ── */}
+        <div className="px-6 md:px-14 py-8 border-t border-white/10 flex flex-wrap gap-x-8 gap-y-2">
+          {["Web & App Design", "AI Automation", "Branding", "Marketing", "Dashboards", "Content Creation", "Analytics", "Hospitality"].map((cat) => (
+            <span key={cat} className="text-[10px] font-black uppercase tracking-[0.3em] text-white/25">{cat}</span>
+          ))}
         </div>
       </section>
 
@@ -180,10 +197,13 @@ export default function Home() {
               </ul>
               {job.image && (
                 <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-muted shadow-xl shadow-black/5">
-                  <img
+                  <Image
                     src={job.image}
                     alt={job.company}
-                    className="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-700"
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-700"
+                    priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent" />
                 </div>
