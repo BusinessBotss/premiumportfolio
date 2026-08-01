@@ -1,0 +1,383 @@
+/**
+ * Central image and collection registry.
+ *
+ * Cloudinary URLs live here once. Projects and collections reference assets by
+ * ID so the same flyer or cover never needs to be duplicated across data files.
+ */
+
+import type { AssetCollection, ImageAsset } from "@/types/portfolio";
+import { site } from "@/data/site";
+
+export const imageAssets: ImageAsset[] = [
+  {
+    id: "hybryd-cover",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773187052/4_v4ssug.png",
+    alt: "HYBRYD Mallorca brand visual.",
+    origin: "original-work",
+    usage: ["selected-work", "archive"],
+    aspectRatio: 16 / 10,
+    projectId: "hybryd-mallorca",
+    featured: true,
+  },
+  {
+    id: "gym-tonic-cover",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1772964332/Screenshot_2026-03-08_at_11.04.55_d9qgxb.png",
+    alt: "Gym Tonic member app interface.",
+    origin: "original-work",
+    usage: ["selected-work", "archive"],
+    aspectRatio: 16 / 10,
+    projectId: "gym-tonic-app",
+    featured: true,
+  },
+  {
+    id: "buborant-cover",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773083469/Screenshot_2026-03-09_at_20.11.00_mev4ei.png",
+    alt: "Buborant QR table-ordering interface.",
+    origin: "original-work",
+    usage: ["selected-work", "archive"],
+    aspectRatio: 16 / 10,
+    projectId: "buborant",
+    featured: true,
+  },
+  {
+    id: "reis-cover",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1774818135/Screenshot_2026-03-29_at_22.59.51_u9zdwa.png",
+    alt: "Reis Infinite Flavors private chef website.",
+    origin: "original-work",
+    usage: ["selected-work", "archive"],
+    aspectRatio: 16 / 10,
+    projectId: "reis-infinite-flavors",
+    featured: true,
+  },
+  {
+    id: "my-lounge-cover",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1772964367/Screenshot_2026-03-08_at_11.04.33_bvb77g.png",
+    alt: "My Lounge Palmanova venue website.",
+    origin: "original-work",
+    usage: ["selected-work", "archive"],
+    aspectRatio: 16 / 10,
+    projectId: "my-lounge-palmanova",
+  },
+  {
+    id: "jeremy-cover",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1774819891/Screenshot_2026-03-29_at_23.31.13_qcn4ic.png",
+    alt: "Jérémy Lerognon real-estate personal brand website.",
+    origin: "original-work",
+    usage: ["selected-work", "archive"],
+    aspectRatio: 16 / 10,
+    projectId: "jeremy-lerognon",
+  },
+  {
+    id: "ohlala-cover",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1774818135/Screenshot_2026-03-29_at_23.00.45_s7ugkv.png",
+    alt: "Oh La La fashion website.",
+    origin: "original-work",
+    usage: ["selected-work", "archive"],
+    aspectRatio: 16 / 10,
+    projectId: "ohlala-fashion",
+  },
+  {
+    id: "vincxx-cover",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1774818135/Screenshot_2026-03-29_at_22.58.34_cbgjjq.png",
+    alt: "VINCXX digital business card interface.",
+    origin: "original-work",
+    usage: ["selected-work", "archive"],
+    aspectRatio: 16 / 10,
+    projectId: "vincxx",
+  },
+  {
+    id: "rodrigo-flyer-cover",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1785358552/4_pkpynx.png",
+    alt: "Real-estate campaign flyer featuring a contemporary property presentation.",
+    origin: "original-work",
+    usage: ["selected-work", "archive"],
+    aspectRatio: 4 / 5,
+    projectId: "rodrigo-zabala",
+    featured: true,
+    treatment: "contained-portrait",
+  },
+  {
+    id: "rodrigo-flyer-02",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1785358551/2_kf7olf.png",
+    alt: "Real-estate campaign flyer with property information layout.",
+    origin: "original-work",
+    usage: ["archive"],
+    aspectRatio: 4 / 5,
+    projectId: "rodrigo-zabala",
+    treatment: "contained-portrait",
+  },
+  {
+    id: "rodrigo-flyer-03",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1785358551/3_qcbjo9.png",
+    alt: "Real-estate campaign flyer with visual property presentation.",
+    origin: "original-work",
+    usage: ["archive"],
+    aspectRatio: 4 / 5,
+    projectId: "rodrigo-zabala",
+    treatment: "contained-portrait",
+  },
+  {
+    id: "rodrigo-flyer-04",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1785358551/1_rrxof1.png",
+    alt: "Real-estate campaign flyer for a coordinated property campaign.",
+    origin: "original-work",
+    usage: ["archive"],
+    aspectRatio: 4 / 5,
+    projectId: "rodrigo-zabala",
+    treatment: "contained-portrait",
+  },
+  {
+    id: "mallorca-charter-cover",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1771721535/DJI_0478_gx9rvb.jpg",
+    alt: "Aerial view of a motor yacht navigating clear coastal water.",
+    origin: "operational-content",
+    usage: ["selected-work", "archive"],
+    aspectRatio: 16 / 10,
+    projectId: "mallorca-charter-experiences",
+    featured: true,
+  },
+  {
+    id: "mallorca-charter-gallery-01",
+    src: "https://res.cloudinary.com/dspv9l3vn/image/upload/v1777018445/%E1%A5%AB_m8rclr.jpg",
+    alt: "Marine lifestyle image from a charter experience gallery.",
+    origin: "operational-content",
+    usage: ["archive"],
+    aspectRatio: 4 / 5,
+    projectId: "mallorca-charter-experiences",
+  },
+  {
+    id: "mallorca-charter-gallery-02",
+    src: "https://res.cloudinary.com/dspv9l3vn/image/upload/v1777018447/__-_2026-04-24T101338.272_v9g5ju.jpg",
+    alt: "Boat detail image from a marine experience gallery.",
+    origin: "operational-content",
+    usage: ["archive"],
+    aspectRatio: 4 / 5,
+    projectId: "mallorca-charter-experiences",
+  },
+  {
+    id: "mallorca-charter-gallery-03",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1771799247/Foto-per-sito-1200x600-px-04-2_qkoemw.jpg",
+    alt: "Charter boat presentation image on coastal water.",
+    origin: "operational-content",
+    usage: ["archive"],
+    aspectRatio: 2 / 1,
+    projectId: "mallorca-charter-experiences",
+  },
+  {
+    id: "mallorca-charter-gallery-04",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1771799248/Foto-per-sito-1200x600-px-09-1_lvdifs.jpg",
+    alt: "Marine experience image with boat and coastal setting.",
+    origin: "operational-content",
+    usage: ["archive"],
+    aspectRatio: 2 / 1,
+    projectId: "mallorca-charter-experiences",
+  },
+  {
+    id: "mallorca-charter-gallery-05",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1774430362/IMG_3082_n0r4pw.heic",
+    alt: "Cloudinary-hosted HEIC image from a charter gallery.",
+    origin: "operational-content",
+    usage: ["archive"],
+    aspectRatio: 4 / 5,
+    projectId: "mallorca-charter-experiences",
+  },
+  {
+    id: "mallorca-charter-gallery-06",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1785246857/IMG_0630_hfjywb.jpg",
+    alt: "Boat experience image from a coastal charter gallery.",
+    origin: "operational-content",
+    usage: ["archive"],
+    aspectRatio: 4 / 5,
+    projectId: "mallorca-charter-experiences",
+  },
+  {
+    id: "mallorca-charter-gallery-07",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1785246858/IMG_0631_cqqusl.png",
+    alt: "Marine experience image with coastal charter context.",
+    origin: "operational-content",
+    usage: ["archive"],
+    aspectRatio: 4 / 5,
+    projectId: "mallorca-charter-experiences",
+  },
+  {
+    id: "mallorca-charter-gallery-08",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773081474/IMG_4909_heoxhm.jpg",
+    alt: "Lifestyle image from a marine charter experience.",
+    origin: "operational-content",
+    usage: ["archive"],
+    aspectRatio: 4 / 5,
+    projectId: "mallorca-charter-experiences",
+  },
+  {
+    id: "business-bots-logo",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1755725396/ChatGPT_Image_Apr_16_2025_12_31_00_AM_pbed1s.png",
+    alt: "Business Bots Solutions logo on a dark editorial background.",
+    origin: "original-work",
+    usage: ["selected-work", "archive"],
+    aspectRatio: 16 / 10,
+    projectId: "business-bots-solutions",
+    treatment: "business-bots-cover",
+  },
+  {
+    id: "visual-campaign-beach-club",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1756130019/ChatGPT_Image_Aug_25_2025_at_01_41_52_PM_pq1b3p.png",
+    alt: "Promotional hospitality flyer from the visual campaign archive.",
+    origin: "original-work",
+    usage: ["archive"],
+    aspectRatio: 4 / 5,
+    treatment: "contained-portrait",
+  },
+  {
+    id: "visual-campaign-flyer-01",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773083709/4_ujb9lg.png",
+    alt: "Promotional flyer from the visual campaign archive.",
+    origin: "original-work",
+    usage: ["archive"],
+    aspectRatio: 4 / 5,
+    treatment: "contained-portrait",
+  },
+  {
+    id: "visual-campaign-flyer-02",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773083719/11_hkioqu.png",
+    alt: "Hospitality promotional design from the visual campaign archive.",
+    origin: "original-work",
+    usage: ["archive"],
+    aspectRatio: 4 / 5,
+    treatment: "contained-portrait",
+  },
+  {
+    id: "visual-campaign-flyer-03",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773083704/3_pyw9wl.png",
+    alt: "Promotional social communication flyer from the archive.",
+    origin: "original-work",
+    usage: ["archive"],
+    aspectRatio: 4 / 5,
+    treatment: "contained-portrait",
+  },
+  {
+    id: "visual-campaign-flyer-04",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773083669/7_muxvdc.png",
+    alt: "Nightlife and hospitality flyer from the visual campaign archive.",
+    origin: "original-work",
+    usage: ["archive"],
+    aspectRatio: 4 / 5,
+    treatment: "contained-portrait",
+  },
+  {
+    id: "portrait",
+    src: site.media.portrait,
+    alt: `${site.name}, portrait.`,
+    origin: "original-work",
+    usage: ["internal"],
+    aspectRatio: 3 / 4,
+    focus: "face",
+  },
+  {
+    id: "stock-wellness-01",
+    src: "https://res.cloudinary.com/dspv9l3vn/image/upload/v1768645979/__-_2026-01-17T113246.558_emcbur.jpg",
+    alt: "Reformer pilates studio interior.",
+    origin: "licensed-stock",
+    usage: ["industry"],
+    aspectRatio: 3 / 2,
+  },
+  {
+    id: "stock-wellness-02",
+    src: "https://res.cloudinary.com/dspv9l3vn/image/upload/v1768645976/Open-air_yoga_shala_in_Crete_overlooking_the_sea_at_Seaside_A_Lifestyle_Resort__xrui0n.jpg",
+    alt: "Open-air yoga shala overlooking the sea.",
+    origin: "licensed-stock",
+    usage: ["industry"],
+    aspectRatio: 3 / 2,
+  },
+  {
+    id: "stock-wellness-03",
+    src: "https://res.cloudinary.com/dspv9l3vn/image/upload/v1768645973/__-_2026-01-17T113215.446_komw6v.jpg",
+    alt: "Pilates studio equipment in natural light.",
+    origin: "licensed-stock",
+    usage: ["industry"],
+    aspectRatio: 3 / 2,
+  },
+  {
+    id: "stock-wellness-04",
+    src: "https://res.cloudinary.com/dspv9l3vn/image/upload/v1768645971/Sport_and_life_kdhstx.jpg",
+    alt: "Training session in a studio setting.",
+    origin: "licensed-stock",
+    usage: ["industry"],
+    aspectRatio: 3 / 2,
+  },
+  {
+    id: "stock-wellness-05",
+    src: "https://res.cloudinary.com/dspv9l3vn/image/upload/v1768645868/Russel_on_our_Foldable_Kaizen_Pilates_Reformer__._lu9j7z.jpg",
+    alt: "Foldable pilates reformer in use.",
+    origin: "licensed-stock",
+    usage: ["industry"],
+    aspectRatio: 3 / 2,
+  },
+];
+
+const assetMap = new Map(imageAssets.map((asset) => [asset.id, asset]));
+
+export function getAsset(id: string): ImageAsset {
+  const asset = assetMap.get(id);
+  if (!asset) throw new Error(`Missing asset: ${id}`);
+  return asset;
+}
+
+export function getAssets(ids: string[]): ImageAsset[] {
+  return ids.map(getAsset);
+}
+
+export const collections: AssetCollection[] = [
+  {
+    id: "premium-real-estate-campaign-system",
+    title: "Premium Real Estate Campaign System",
+    category: "Campaign · Real Estate",
+    description:
+      "A coordinated real-estate flyer system connected to Rodrigo Zabala's enquiry journey.",
+    projectId: "rodrigo-zabala",
+    assetIds: [
+      "rodrigo-flyer-cover",
+      "rodrigo-flyer-02",
+      "rodrigo-flyer-03",
+      "rodrigo-flyer-04",
+    ],
+    featured: true,
+    archiveVisible: true,
+  },
+  {
+    id: "visual-campaign-archive",
+    title: "Visual Campaign Archive",
+    category:
+      "Hospitality · Real Estate · Nightlife · Beach Clubs · Promotional Design · Social Communication",
+    description:
+      "Standalone promotional design assets without unverified client, result or campaign claims.",
+    assetIds: [
+      "visual-campaign-beach-club",
+      "visual-campaign-flyer-01",
+      "visual-campaign-flyer-02",
+      "visual-campaign-flyer-03",
+      "visual-campaign-flyer-04",
+    ],
+    archiveVisible: true,
+  },
+];
+
+export const archiveCollections = collections.filter((collection) => collection.archiveVisible);
+export const projectAssets = imageAssets.filter((asset) =>
+  asset.usage.includes("selected-work"),
+);
+export const galleryAssets = imageAssets.filter(
+  (asset) => asset.usage.includes("archive") && !asset.usage.includes("selected-work"),
+);
+export const trailAssets = projectAssets.filter(
+  (asset) =>
+    asset.origin === "original-work" ||
+    asset.origin === "client-provided" ||
+    asset.origin === "operational-content",
+);
+export const portrait = getAsset("portrait");
+export const stockAssets = imageAssets.filter((asset) =>
+  asset.usage.includes("industry"),
+);
+export const archiveAssets = imageAssets.filter((asset) =>
+  asset.usage.includes("archive"),
+);
