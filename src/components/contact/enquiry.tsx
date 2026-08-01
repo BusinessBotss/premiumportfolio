@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { RippleButton } from "@/components/motion/ripple-button";
 import { site } from "@/data/site";
+import type { AppDictionary } from "@/i18n/dictionaries";
 import { EASE_EDITORIAL } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -28,82 +29,26 @@ interface Step {
   placeholder?: string;
 }
 
-const STEPS: Step[] = [
-  {
-    id: "building",
-    question: "What are you building?",
-    hint: "A sentence is enough.",
-    kind: "text",
-    placeholder: "A members app for a gym in Palma…",
-  },
-  {
-    id: "support",
-    question: "What kind of support do you need?",
-    kind: "choice",
-    options: [
-      "Strategy and direction",
-      "Design and brand",
-      "Build and delivery",
-      "End to end",
-    ],
-  },
-  {
-    id: "outcome",
-    question: "What outcome matters most?",
-    kind: "choice",
-    options: [
-      "More enquiries",
-      "Less manual work",
-      "A stronger brand",
-      "A new market",
-      "Something else",
-    ],
-  },
-  {
-    id: "timeline",
-    question: "What is the timeline?",
-    kind: "choice",
-    options: ["Now", "Within a quarter", "This year", "Still exploring"],
-  },
-  {
-    id: "investment",
-    question: "What investment range are you working with?",
-    hint: "This only sets the scope of the conversation.",
-    kind: "choice",
-    options: [
-      "Under €2,000",
-      "€2,000 – €6,000",
-      "€6,000 – €15,000",
-      "€15,000+",
-      "Not sure yet",
-    ],
-  },
-  {
-    id: "contact",
-    question: "Who should I reply to?",
-    kind: "contact",
-  },
-  {
-    id: "detail",
-    question: "Anything else worth knowing?",
-    hint: "Optional.",
-    kind: "text",
-    optional: true,
-    placeholder: "Links, constraints, context…",
-  },
-];
-
 type Answers = Record<string, string>;
 
-export function Enquiry() {
+export function Enquiry({ dictionary }: { dictionary: AppDictionary }) {
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const reduced = useReducedMotion();
 
-  const step = STEPS[index];
-  const isLast = index === STEPS.length - 1;
+  const steps: Step[] = useMemo(
+    () =>
+      dictionary.enquiry.steps.map((step) => ({
+        ...step,
+        kind: step.id === "contact" ? "contact" : step.options ? "choice" : "text",
+      })),
+    [dictionary.enquiry.steps],
+  );
+
+  const step = steps[index];
+  const isLast = index === steps.length - 1;
 
   const canAdvance =
     step.kind === "contact"
@@ -111,32 +56,38 @@ export function Enquiry() {
       : step.optional || (answers[step.id]?.trim().length ?? 0) > 0;
 
   const message = useMemo(() => {
-    const lines = STEPS.filter((s) => s.kind !== "contact")
+    const lines = steps.filter((s) => s.kind !== "contact")
       .map((s) => {
         const value = answers[s.id]?.trim();
         return value ? `${s.question}\n${value}` : null;
       })
       .filter(Boolean);
-    return [`Enquiry from ${name || "—"} (${contact || "—"})`, ...lines].join(
+    const intro = dictionary.enquiry.messageIntro
+      .replace("{name}", name || "—")
+      .replace("{contact}", contact || "—");
+    return [intro, ...lines].join(
       "\n\n",
     );
-  }, [answers, name, contact]);
+  }, [answers, contact, dictionary, name, steps]);
 
   const whatsapp = `${site.contact.whatsapp}?text=${encodeURIComponent(message)}`;
   const mailto = `mailto:${site.contact.email}?subject=${encodeURIComponent(
-    `Project enquiry — ${name || "New enquiry"}`,
+    dictionary.enquiry.subject.replace(
+      "{name}",
+      name || (dictionary.locale === "en" ? "New enquiry" : dictionary.locale === "es" ? "Nueva consulta" : "Neue Anfrage"),
+    ),
   )}&body=${encodeURIComponent(message)}`;
 
   function set(value: string) {
     setAnswers((a) => ({ ...a, [step.id]: value }));
   }
 
-  const done = index >= STEPS.length;
+  const done = index >= steps.length;
 
   return (
     <div className="flex flex-col gap-10">
       <ol className="flex gap-1.5" aria-hidden>
-        {STEPS.map((s, i) => (
+        {steps.map((s, i) => (
           <li
             key={s.id}
             className={cn(
@@ -158,13 +109,12 @@ export function Enquiry() {
             className="flex flex-col gap-8"
           >
             <div className="flex flex-col gap-4">
-              <span className="label text-content-faint">Ready to send</span>
+              <span className="label text-content-faint">{dictionary.enquiry.ready}</span>
               <h3 className="font-display text-title leading-tight">
-                That is everything I need to reply properly.
+                {dictionary.enquiry.readyTitle}
               </h3>
               <p className="max-w-lg text-sm leading-relaxed text-content-muted">
-                Choose how you would like to send it. Nothing has been submitted
-                yet — the message opens in your own app so you can read it first.
+                {dictionary.enquiry.readyText}
               </p>
             </div>
 
@@ -173,16 +123,16 @@ export function Enquiry() {
             </pre>
 
             <div className="flex flex-wrap gap-3">
-              <RippleButton href={whatsapp}>Send on WhatsApp</RippleButton>
+              <RippleButton href={whatsapp}>{dictionary.enquiry.sendWhatsapp}</RippleButton>
               <RippleButton href={mailto} variant="outline">
-                Send by email
+                {dictionary.enquiry.sendEmail}
               </RippleButton>
               <button
                 type="button"
-                onClick={() => setIndex(STEPS.length - 1)}
+                onClick={() => setIndex(steps.length - 1)}
                 className="label px-2 text-content-muted transition-colors hover:text-content"
               >
-                Back
+                {dictionary.enquiry.back}
               </button>
             </div>
           </motion.div>
@@ -197,7 +147,7 @@ export function Enquiry() {
           >
             <div className="flex flex-col gap-2">
               <span className="label text-content-faint">
-                {String(index + 1).padStart(2, "0")} / {String(STEPS.length).padStart(2, "0")}
+                {String(index + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
               </span>
               <h3 className="font-display text-title leading-tight">
                 {step.question}
@@ -252,14 +202,14 @@ export function Enquiry() {
               <div className="grid gap-4 md:grid-cols-2">
                 <Field
                   id="enquiry-name"
-                  label="Name"
+                  label={dictionary.enquiry.name}
                   value={name}
                   onChange={setName}
                   autoComplete="name"
                 />
                 <Field
                   id="enquiry-contact"
-                  label="Email or phone"
+                  label={dictionary.enquiry.contact}
                   value={contact}
                   onChange={setContact}
                   autoComplete="email"
@@ -274,14 +224,14 @@ export function Enquiry() {
                   onClick={() => setIndex((i) => i - 1)}
                   className="label text-content-muted transition-colors hover:text-content"
                 >
-                  Back
+                  {dictionary.enquiry.back}
                 </button>
               )}
               <RippleButton
                 onClick={() => canAdvance && setIndex((i) => i + 1)}
                 className={cn(!canAdvance && "pointer-events-none opacity-40")}
               >
-                {isLast ? "Review" : "Continue"}
+                {isLast ? dictionary.enquiry.review : dictionary.enquiry.continue}
               </RippleButton>
             </div>
           </motion.div>

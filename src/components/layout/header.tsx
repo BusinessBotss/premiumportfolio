@@ -3,8 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { Menu } from "@/components/layout/menu";
-import { primaryNav, site } from "@/data/site";
+import { site } from "@/data/site";
+import type { Locale } from "@/i18n/config";
+import type { AppDictionary } from "@/i18n/dictionaries";
+import { withLocale } from "@/i18n/routing";
 import { EASE_SWIFT } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -15,7 +19,7 @@ import { cn } from "@/lib/utils";
  * hides while scrolling down — the page content matters more than persistent
  * chrome. It reappears on any upward scroll, and always when the menu is open.
  */
-export function Header() {
+export function Header({ locale, dictionary }: { locale: Locale; dictionary: AppDictionary }) {
   const [open, setOpen] = useState(false);
   const [condensed, setCondensed] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -28,6 +32,12 @@ export function Header() {
   });
 
   const scheme = condensed ? "light" : "dark";
+  const primaryNav = [
+    { label: dictionary.navigation.primary.work, href: withLocale(locale, "/work") },
+    { label: dictionary.navigation.primary.expertise, href: `${withLocale(locale)}#capabilities` },
+    { label: dictionary.navigation.primary.about, href: withLocale(locale, "/about") },
+    { label: dictionary.navigation.primary.contact, href: withLocale(locale, "/contact") },
+  ];
 
   return (
     <>
@@ -44,7 +54,7 @@ export function Header() {
       >
         <div className="gutter flex h-16 items-center justify-between md:h-20">
           <Link
-            href="/"
+            href={withLocale(locale)}
             onClick={() => setOpen(false)}
             className="inline-flex min-h-11 items-center font-display text-base tracking-tight md:text-lg"
           >
@@ -63,8 +73,12 @@ export function Header() {
             ))}
             <span className="flex items-center gap-2">
               <span className="size-1.5 rounded-full bg-accent" aria-hidden />
-              <span className="label text-content-muted">Available</span>
+              <span className="label text-content-muted">{dictionary.navigation.available}</span>
             </span>
+            <LanguageSwitcher
+              locale={locale}
+              label={dictionary.common.languageLabel}
+            />
           </nav>
 
           <button
@@ -74,13 +88,18 @@ export function Header() {
             aria-controls="global-menu"
             className="label inline-flex min-h-11 min-w-11 items-center justify-end md:hidden"
           >
-            {open ? "Close" : "Menu"}
+            {open ? dictionary.navigation.close : dictionary.navigation.menu}
           </button>
         </div>
       </motion.header>
 
       <div id="global-menu">
-        <Menu open={open} onClose={() => setOpen(false)} />
+        <Menu
+          open={open}
+          onClose={() => setOpen(false)}
+          locale={locale}
+          dictionary={dictionary}
+        />
       </div>
     </>
   );

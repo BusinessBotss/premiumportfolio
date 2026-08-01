@@ -146,6 +146,7 @@ export type AssetOrigin =
   | "visual-reference";
 
 export type AssetUsage = "selected-work" | "archive" | "industry" | "internal";
+export type AssetVisibility = "public" | "contextual" | "internal-reference";
 
 export interface ImageAsset {
   id: string;
@@ -154,6 +155,7 @@ export interface ImageAsset {
   alt: string;
   origin: AssetOrigin;
   usage: AssetUsage[];
+  visibility?: AssetVisibility;
   /** width / height. Reserves layout space and prevents CLS. */
   aspectRatio: number;
   projectId?: string;

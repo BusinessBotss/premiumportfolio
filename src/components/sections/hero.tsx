@@ -2,7 +2,9 @@ import { MaskText } from "@/components/motion/mask-text";
 import { Reveal } from "@/components/motion/reveal";
 import { RippleButton } from "@/components/motion/ripple-button";
 import { LocalTime } from "@/components/ui/local-time";
-import { site } from "@/data/site";
+import type { Locale } from "@/i18n/config";
+import type { AppDictionary } from "@/i18n/dictionaries";
+import { withLocale } from "@/i18n/routing";
 
 /**
  * Opening screen.
@@ -11,7 +13,7 @@ import { site } from "@/data/site";
  * The background is a pair of slowly drifting light fields — abstract motion
  * that does not compete with the type and costs nothing to render.
  */
-export function Hero() {
+export function Hero({ locale, dictionary }: { locale: Locale; dictionary: AppDictionary }) {
   return (
     <section
       data-scheme="dark"
@@ -38,7 +40,7 @@ export function Hero() {
         <div className="flex flex-col gap-6">
           <Reveal>
             <span className="label text-content-muted">
-              {site.location} — {site.role}
+              {dictionary.common.location} — {dictionary.common.role}
             </span>
           </Reveal>
 
@@ -47,7 +49,7 @@ export function Hero() {
               rather than a queue. */}
           <MaskText
             as="h1"
-            text={site.name}
+            text={dictionary.home.hero.title}
             split="char"
             stagger={0.035}
             className="font-display text-display leading-[0.86] tracking-[-0.03em]"
@@ -57,15 +59,17 @@ export function Hero() {
         <div className="flex flex-col gap-10 border-t border-rule pt-8 lg:flex-row lg:items-end lg:justify-between">
           <Reveal delay={0.1} className="max-w-xl">
             <p className="text-lead leading-snug text-content-muted">
-              {site.positioning}
+              {dictionary.common.positioning}
             </p>
           </Reveal>
 
           <Reveal delay={0.18}>
             <div className="flex flex-wrap items-center gap-4">
-              <RippleButton href="/work">View selected work</RippleButton>
-              <RippleButton href="/contact" variant="outline">
-                Start a project
+              <RippleButton href={withLocale(locale, "/work")}>
+                {dictionary.home.hero.ctaWork}
+              </RippleButton>
+              <RippleButton href={withLocale(locale, "/contact")} variant="outline">
+                {dictionary.home.hero.ctaContact}
               </RippleButton>
             </div>
           </Reveal>
@@ -76,7 +80,7 @@ export function Hero() {
             href="#perspective"
             className="label inline-flex min-h-11 min-w-11 items-center text-content-faint transition-colors hover:text-content"
           >
-            Scroll
+            {dictionary.home.hero.scroll}
           </a>
           <LocalTime />
         </div>

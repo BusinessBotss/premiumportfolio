@@ -3,13 +3,19 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { footerNav, site, socialNav } from "@/data/site";
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
+import { site } from "@/data/site";
+import type { Locale } from "@/i18n/config";
+import type { AppDictionary } from "@/i18n/dictionaries";
+import { withLocale } from "@/i18n/routing";
 import { DURATION, EASE_EDITORIAL } from "@/lib/motion";
 import { pad } from "@/lib/utils";
 
 interface MenuProps {
   open: boolean;
   onClose: () => void;
+  locale: Locale;
+  dictionary: AppDictionary;
 }
 
 const FOCUSABLE = 'a[href], button:not([disabled])';
@@ -20,7 +26,7 @@ const FOCUSABLE = 'a[href], button:not([disabled])';
  * Behaves as a modal dialog: focus moves in on open, Tab cycles inside it,
  * Escape closes, and the page behind stops scrolling.
  */
-export function Menu({ open, onClose }: MenuProps) {
+export function Menu({ open, onClose, locale, dictionary }: MenuProps) {
   const panel = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
 
@@ -63,6 +69,19 @@ export function Menu({ open, onClose }: MenuProps) {
     };
   }, [open, onClose]);
 
+  const footerNav = [
+    { label: dictionary.navigation.footer.work, href: withLocale(locale, "/work") },
+    { label: dictionary.navigation.footer.about, href: withLocale(locale, "/about") },
+    { label: dictionary.navigation.footer.archive, href: withLocale(locale, "/archive") },
+    { label: dictionary.navigation.footer.contact, href: withLocale(locale, "/contact") },
+  ];
+  const socialNav = [
+    { label: dictionary.navigation.social.whatsapp, href: site.contact.whatsapp },
+    { label: dictionary.navigation.social.instagram, href: site.contact.instagram },
+    { label: dictionary.navigation.social.email, href: `mailto:${site.contact.email}` },
+    { label: dictionary.navigation.social.pitchDeck, href: site.contact.pitchDeck },
+  ];
+
   return (
     <AnimatePresence>
       {open && (
@@ -71,7 +90,7 @@ export function Menu({ open, onClose }: MenuProps) {
           data-scheme="dark"
           role="dialog"
           aria-modal="true"
-          aria-label="Navigation"
+          aria-label={dictionary.navigation.navigate}
           initial={{ opacity: 0, y: reduced ? 0 : "-2%" }}
           animate={{ opacity: 1, y: "0%" }}
           exit={{ opacity: 0, y: reduced ? 0 : "-2%" }}
@@ -118,7 +137,7 @@ export function Menu({ open, onClose }: MenuProps) {
 
           <div className="gutter flex flex-col gap-6 pb-10 md:flex-row md:items-end md:justify-between">
             <div className="flex flex-col gap-1">
-              <span className="label text-content-faint">Direct</span>
+              <span className="label text-content-faint">{dictionary.navigation.direct}</span>
               <a
                 href={`mailto:${site.contact.email}`}
                 className="link-editorial inline-flex min-h-11 min-w-11 items-center text-lead"
@@ -126,20 +145,30 @@ export function Menu({ open, onClose }: MenuProps) {
                 {site.contact.email}
               </a>
             </div>
-            <ul className="flex flex-wrap gap-x-6 gap-y-2">
-              {socialNav.map((item) => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="link-editorial label inline-flex min-h-11 min-w-11 items-center text-content-muted [--link-tracking-hover:0.26em] [--link-tracking:0.16em]"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <div className="flex flex-col gap-3 md:items-end">
+              <span className="label text-content-faint">
+                {dictionary.navigation.language}
+              </span>
+              <LanguageSwitcher
+                locale={locale}
+                label={dictionary.common.languageLabel}
+                compact
+              />
+              <ul className="flex flex-wrap gap-x-6 gap-y-2">
+                {socialNav.map((item) => (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-editorial label inline-flex min-h-11 min-w-11 items-center text-content-muted [--link-tracking-hover:0.26em] [--link-tracking:0.16em]"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </motion.div>
       )}

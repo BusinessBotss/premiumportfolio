@@ -3,6 +3,10 @@ import { ProjectCard } from "@/components/projects/project-card";
 import { Reveal } from "@/components/motion/reveal";
 import { Section } from "@/components/ui/section";
 import { featuredProjects } from "@/data/projects";
+import type { Locale } from "@/i18n/config";
+import type { AppDictionary } from "@/i18n/dictionaries";
+import { withLocale } from "@/i18n/routing";
+import { localizeProjects } from "@/lib/localized-projects";
 
 /**
  * Selected Work.
@@ -22,27 +26,31 @@ const LAYOUT = [
 
 const SIZES = "(max-width: 1024px) 100vw, 55vw";
 
-export function SelectedWork() {
+export function SelectedWork({ locale, dictionary }: { locale: Locale; dictionary: AppDictionary }) {
+  const localizedFeatured = localizeProjects(featuredProjects, locale);
+
   return (
     <Section id="work" scheme="light">
       <div className="gutter">
         <div className="mb-16 flex flex-wrap items-end justify-between gap-6 border-b border-rule pb-6">
           <div className="flex flex-col gap-3">
-            <span className="label text-content-faint">02 — Selected Work</span>
+            <span className="label text-content-faint">
+              {dictionary.home.selected.eyebrow}
+            </span>
             <h2 className="font-display text-title leading-none">
-              Built, shipped, in use.
+              {dictionary.home.selected.title}
             </h2>
           </div>
           <Link
-            href="/work"
+            href={withLocale(locale, "/work")}
             className="label border-b border-rule pb-1 text-content-muted transition-colors hover:text-content"
           >
-            All work
+            {dictionary.common.allWork}
           </Link>
         </div>
 
         <div className="grid gap-x-8 gap-y-20 lg:grid-cols-12">
-          {featuredProjects.map((project, i) => {
+          {localizedFeatured.map((project, i) => {
             const layout = LAYOUT[i % LAYOUT.length];
             return (
               <Reveal
@@ -52,6 +60,7 @@ export function SelectedWork() {
               >
                 <ProjectCard
                   project={project}
+                  locale={locale}
                   index={i}
                   ratio={layout.ratio}
                   sizes={SIZES}

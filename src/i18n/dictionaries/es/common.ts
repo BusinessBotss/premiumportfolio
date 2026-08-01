@@ -1,0 +1,22 @@
+export const common = {
+  availability: "Disponible para proyectos destacados",
+  siteTitle: "Elias — Sistemas digitales, dirección creativa y estrategia hospitality",
+  positioning:
+    "Construyo sistemas digitales, productos y marcas para negocios de hospitality, inmobiliario, fitness y lifestyle: de la estrategia a lo que realmente se lanza.",
+  role: "Sistemas digitales, producto y dirección de marca",
+  location: "Palma de Mallorca, España",
+  startProject: "Empezar un proyecto",
+  preferWhatsapp: "¿Prefieres WhatsApp?",
+  allWork: "Ver proyectos",
+  seeWork: "Ver proyectos",
+  liveProject: "Visitar el proyecto",
+  unavailable: "El resultado final no está disponible públicamente.",
+  selectedWork: "Proyectos destacados",
+  nextProject: "Siguiente proyecto",
+  gallery: "Galería",
+  shareProject: "Compartir proyecto",
+  copyLink: "Copiar enlace",
+  copied: "Copiado",
+  languageLabel: "Idioma",
+  skipToContent: "Saltar al contenido",
+};

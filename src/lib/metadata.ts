@@ -8,6 +8,8 @@
 
 import type { Metadata } from "next";
 import { IS_PREVIEW, SITE_URL, site } from "@/data/site";
+import { locales, ogLocales, type Locale } from "@/i18n/config";
+import { withLocale } from "@/i18n/routing";
 import { cld } from "@/lib/cloudinary";
 
 interface BuildMetadataArgs {
@@ -16,6 +18,7 @@ interface BuildMetadataArgs {
   description: string;
   /** Route path beginning with a slash, e.g. "/work/hybryd-mallorca". */
   path: string;
+  locale?: Locale;
   /** Full Cloudinary URL. Falls back to the site OG image. */
   image?: string;
   imageFit?: "cover" | "contain";
@@ -34,6 +37,7 @@ export function buildMetadata({
   title,
   description,
   path,
+  locale = "en",
   image,
   imageFit = "cover",
   imageBackground,
@@ -42,8 +46,12 @@ export function buildMetadata({
 }: BuildMetadataArgs): Metadata {
   const fullTitle =
     title ?? `${site.firstName} — Digital Systems, Creative Direction & Hospitality Intelligence`;
-  const url = `${SITE_URL}${path === "/" ? "" : path}`;
+  const localizedPath = withLocale(locale, path);
+  const url = `${SITE_URL}${localizedPath}`;
   const shouldNoindex = IS_PREVIEW || noindex;
+  const languages = Object.fromEntries(
+    locales.map((l) => [l, `${SITE_URL}${withLocale(l, path)}`]),
+  );
 
   const ogImage = cld(image ?? site.media.ogImage, {
     width: OG_SIZE.width,
@@ -56,7 +64,13 @@ export function buildMetadata({
   return {
     title: fullTitle,
     description,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      languages: {
+        ...languages,
+        "x-default": `${SITE_URL}${withLocale("en", path)}`,
+      },
+    },
     ...(shouldNoindex && { robots: { index: false, follow: false } }),
     openGraph: {
       type,
@@ -64,7 +78,8 @@ export function buildMetadata({
       title: fullTitle,
       description,
       siteName: site.name,
-      locale: "en_US",
+      locale: ogLocales[locale],
+      alternateLocale: locales.filter((l) => l !== locale).map((l) => ogLocales[l]),
       images: [{ url: ogImage, ...OG_SIZE, alt: title ?? site.name }],
     },
     twitter: {
@@ -79,12 +94,12 @@ export function buildMetadata({
 // ── Structured data ───────────────────────────────────────────────────────
 
 /** Person schema for the home and about pages. */
-export function personSchema(sameAs: string[] = []) {
+export function personSchema(locale: Locale = "en", sameAs: string[] = []) {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
     name: site.name,
-    url: SITE_URL,
+    url: `${SITE_URL}${withLocale(locale)}`,
     jobTitle: site.role,
     description: site.positioning,
     image: site.media.portrait,
@@ -108,20 +123,22 @@ export function projectSchema(input: {
   title: string;
   summary: string;
   slug: string;
+  locale?: Locale;
   /** Omitted entirely when unverified — an absent field beats a wrong date. */
   year?: string;
   image: string;
   client?: string;
 }) {
+  const locale = input.locale ?? "en";
   return {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
     name: input.title,
     description: input.summary,
-    url: `${SITE_URL}/work/${input.slug}`,
+    url: `${SITE_URL}${withLocale(locale, `/work/${input.slug}`)}`,
     ...(input.year && { dateCreated: input.year }),
     image: input.image,
-    creator: { "@type": "Person", name: site.name, url: SITE_URL },
+    creator: { "@type": "Person", name: site.name, url: `${SITE_URL}${withLocale(locale)}` },
     ...(input.client && { about: input.client }),
   };
 }

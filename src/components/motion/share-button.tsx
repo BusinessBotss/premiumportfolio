@@ -8,6 +8,9 @@ import { cn } from "@/lib/utils";
 interface ShareButtonProps {
   url: string;
   title: string;
+  label: string;
+  copyLabel: string;
+  copiedLabel: string;
   className?: string;
 }
 
@@ -18,7 +21,14 @@ interface ShareButtonProps {
  * an explicit menu everywhere else. Every target is a real link, so it works
  * with the keyboard and without JavaScript-driven popups.
  */
-export function ShareButton({ url, title, className }: ShareButtonProps) {
+export function ShareButton({
+  url,
+  title,
+  label,
+  copyLabel,
+  copiedLabel,
+  className,
+}: ShareButtonProps) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -61,7 +71,7 @@ export function ShareButton({ url, title, className }: ShareButtonProps) {
         aria-haspopup="menu"
         className="label inline-flex min-h-11 items-center border-b border-rule text-content-muted transition-colors hover:text-content"
       >
-        Share project
+        {label}
       </button>
 
       <AnimatePresence>
@@ -80,7 +90,7 @@ export function ShareButton({ url, title, className }: ShareButtonProps) {
               onClick={copy}
               className="min-h-11 px-3 py-3 text-left text-sm transition-colors hover:bg-surface-raised"
             >
-              {copied ? "Link copied" : "Copy link"}
+              {copied ? copiedLabel : copyLabel}
             </button>
             {targets.map((t) => (
               <a

@@ -44,6 +44,7 @@ const catalogue: Project[] = [
     ],
     externalUrl: "http://hybrydwaitlist.web.app/",
     cover: getAsset("hybryd-cover"),
+    gallery: getAssets(["hybryd-cover", "gym-tonic-banner", "business-bots-interface-01"]),
   },
   {
     id: "gym-tonic-app",
@@ -70,6 +71,7 @@ const catalogue: Project[] = [
     ],
     externalUrl: "https://gymtonicapp.goodbarber.app/index.html?standalone=1",
     cover: getAsset("gym-tonic-cover"),
+    gallery: getAssets(["gym-tonic-cover", "gym-tonic-banner"]),
   },
   {
     id: "buborant",
@@ -95,6 +97,7 @@ const catalogue: Project[] = [
     ],
     externalUrl: "https://businessbotss.github.io/buborant/",
     cover: getAsset("buborant-cover"),
+    gallery: getAssets(["buborant-cover", "business-bots-interface-02"]),
   },
   {
     id: "reis-infinite-flavors",
@@ -120,6 +123,14 @@ const catalogue: Project[] = [
     ],
     externalUrl: "https://reis-infinite-flavors.vercel.app/",
     cover: getAsset("reis-cover"),
+    gallery: getAssets([
+      "reis-food-landscape",
+      "reis-kitchen-moment",
+      "reis-cover",
+      "reis-booking-interface",
+      "reis-detail-plate",
+      "reis-table-service",
+    ]),
   },
 
   // ── Secondary ───────────────────────────────────────────────────────────
@@ -314,6 +325,12 @@ const catalogue: Project[] = [
     externalUrl: "https://business-bots-solutions.web.app",
     pitchDeckUrl: "https://pdflink.to/ourpitchdeck/",
     cover: getAsset("business-bots-logo"),
+    gallery: getAssets([
+      "business-bots-logo",
+      "business-bots-consultancy",
+      "business-bots-interface-01",
+      "business-bots-interface-02",
+    ]),
   },
   {
     id: "renata-sa",

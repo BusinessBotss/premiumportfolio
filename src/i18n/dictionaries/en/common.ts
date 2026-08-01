@@ -1,0 +1,22 @@
+export const common = {
+  availability: "Available for select projects",
+  siteTitle: "Elias — Digital Systems, Creative Direction & Hospitality Intelligence",
+  positioning:
+    "I build digital systems, products and brands for businesses in hospitality, real estate, fitness and lifestyle — from strategy through to what actually ships.",
+  role: "Digital Systems, Product & Brand Direction",
+  location: "Palma de Mallorca, Spain",
+  startProject: "Start a project",
+  preferWhatsapp: "Prefer WhatsApp?",
+  allWork: "All work",
+  seeWork: "See the work",
+  liveProject: "Visit the live project",
+  unavailable: "The live artefact is not publicly available.",
+  selectedWork: "Selected Work",
+  nextProject: "Next project",
+  gallery: "Gallery",
+  shareProject: "Share project",
+  copyLink: "Copy link",
+  copied: "Copied",
+  languageLabel: "Language",
+  skipToContent: "Skip to content",
+};

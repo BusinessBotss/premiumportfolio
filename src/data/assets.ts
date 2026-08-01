@@ -30,6 +30,16 @@ export const imageAssets: ImageAsset[] = [
     featured: true,
   },
   {
+    id: "gym-tonic-banner",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773187019/1_wvph24.png",
+    alt: "Gym Tonic brand banner and member communication visual.",
+    origin: "original-work",
+    usage: ["archive"],
+    visibility: "public",
+    aspectRatio: 16 / 9,
+    projectId: "gym-tonic-app",
+  },
+  {
     id: "buborant-cover",
     src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773083469/Screenshot_2026-03-09_at_20.11.00_mev4ei.png",
     alt: "Buborant QR table-ordering interface.",
@@ -48,6 +58,57 @@ export const imageAssets: ImageAsset[] = [
     aspectRatio: 16 / 10,
     projectId: "reis-infinite-flavors",
     featured: true,
+  },
+  {
+    id: "reis-food-landscape",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773741798/IMG_5324_jpo8lf.jpg",
+    alt: "Private chef food presentation with refined plating.",
+    origin: "operational-content",
+    usage: ["archive"],
+    visibility: "public",
+    aspectRatio: 4 / 3,
+    projectId: "reis-infinite-flavors",
+  },
+  {
+    id: "reis-booking-interface",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773876028/book-experience04.jpg_w_278_h_405_c_1_q_80_fd_1_e__ldqdyu.webp",
+    alt: "Reis Infinite Flavors booking and experience interface fragment.",
+    origin: "original-work",
+    usage: ["archive"],
+    visibility: "public",
+    aspectRatio: 278 / 405,
+    projectId: "reis-infinite-flavors",
+    treatment: "contained-portrait",
+  },
+  {
+    id: "reis-kitchen-moment",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773675596/ReisInfinityfotos_29of209_s58ekg.jpg",
+    alt: "Chef preparing a private dining experience.",
+    origin: "operational-content",
+    usage: ["archive"],
+    visibility: "public",
+    aspectRatio: 4 / 5,
+    projectId: "reis-infinite-flavors",
+  },
+  {
+    id: "reis-detail-plate",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773670762/IMG_5313_ihhmak.jpg",
+    alt: "Detail of plated food from a private chef experience.",
+    origin: "operational-content",
+    usage: ["archive"],
+    visibility: "public",
+    aspectRatio: 4 / 5,
+    projectId: "reis-infinite-flavors",
+  },
+  {
+    id: "reis-table-service",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773670532/ReisInfinityfotos_79of209_ozg1mr.jpg",
+    alt: "Private dining service detail from Reis Infinite Flavors.",
+    origin: "operational-content",
+    usage: ["archive"],
+    visibility: "public",
+    aspectRatio: 4 / 5,
+    projectId: "reis-infinite-flavors",
   },
   {
     id: "my-lounge-cover",
@@ -219,6 +280,47 @@ export const imageAssets: ImageAsset[] = [
     treatment: "business-bots-cover",
   },
   {
+    id: "business-bots-consultancy",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773187262/Consultancy_2_pw5c6z.png",
+    alt: "Business Bots consultancy and digital systems visual.",
+    origin: "original-work",
+    usage: ["archive"],
+    visibility: "public",
+    aspectRatio: 16 / 9,
+    projectId: "business-bots-solutions",
+  },
+  {
+    id: "business-bots-interface-01",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1772973944/Screenshot_2026-03-08_at_13.37.59_bwauml.png",
+    alt: "Digital interface screenshot from the Business Bots systems ecosystem.",
+    origin: "original-work",
+    usage: ["archive"],
+    visibility: "public",
+    aspectRatio: 16 / 10,
+    projectId: "business-bots-solutions",
+  },
+  {
+    id: "business-bots-interface-02",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1772973944/Screenshot_2026-03-08_at_13.44.34_iwycls.png",
+    alt: "Operational dashboard interface fragment from the Business Bots ecosystem.",
+    origin: "original-work",
+    usage: ["archive"],
+    visibility: "public",
+    aspectRatio: 16 / 10,
+    projectId: "business-bots-solutions",
+  },
+  {
+    id: "business-bots-automation",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1772958590/n8n_io_-_AI_workflow_automation_tool_adsl4c.jpg",
+    alt: "Automation workflow reference used to explain AI systems and process design.",
+    origin: "visual-reference",
+    usage: ["industry"],
+    visibility: "contextual",
+    aspectRatio: 16 / 10,
+    projectId: "business-bots-solutions",
+    credit: "Sector reference, not presented as client work.",
+  },
+  {
     id: "visual-campaign-beach-club",
     src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1756130019/ChatGPT_Image_Aug_25_2025_at_01_41_52_PM_pq1b3p.png",
     alt: "Promotional hospitality flyer from the visual campaign archive.",
@@ -279,6 +381,7 @@ export const imageAssets: ImageAsset[] = [
     origin: "licensed-stock",
     usage: ["industry"],
     aspectRatio: 3 / 2,
+    visibility: "contextual",
   },
   {
     id: "stock-wellness-02",
@@ -363,10 +466,13 @@ export const collections: AssetCollection[] = [
 
 export const archiveCollections = collections.filter((collection) => collection.archiveVisible);
 export const projectAssets = imageAssets.filter((asset) =>
-  asset.usage.includes("selected-work"),
+  asset.usage.includes("selected-work") && asset.visibility !== "internal-reference",
 );
 export const galleryAssets = imageAssets.filter(
-  (asset) => asset.usage.includes("archive") && !asset.usage.includes("selected-work"),
+  (asset) =>
+    asset.usage.includes("archive") &&
+    !asset.usage.includes("selected-work") &&
+    asset.visibility !== "internal-reference",
 );
 export const trailAssets = projectAssets.filter(
   (asset) =>
@@ -376,8 +482,8 @@ export const trailAssets = projectAssets.filter(
 );
 export const portrait = getAsset("portrait");
 export const stockAssets = imageAssets.filter((asset) =>
-  asset.usage.includes("industry"),
+  asset.usage.includes("industry") && asset.visibility !== "internal-reference",
 );
 export const archiveAssets = imageAssets.filter((asset) =>
-  asset.usage.includes("archive"),
+  asset.usage.includes("archive") && asset.visibility !== "internal-reference",
 );

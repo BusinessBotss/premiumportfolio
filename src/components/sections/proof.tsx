@@ -5,6 +5,14 @@ import { Section } from "@/components/ui/section";
 import { relationships, relationshipsIntro } from "@/data/clients";
 import { isPublicSlug } from "@/data/projects";
 import { testimonials } from "@/data/testimonials";
+import type { Locale } from "@/i18n/config";
+import type { AppDictionary } from "@/i18n/dictionaries";
+import {
+  translateEngagement,
+  translateIndustry,
+  translateRelationshipsIntro,
+} from "@/i18n/localized-content";
+import { withLocale } from "@/i18n/routing";
 
 /**
  * Proof.
@@ -13,20 +21,28 @@ import { testimonials } from "@/data/testimonials";
  * verified ones exist; until then the evidence is the work itself, which is a
  * stronger claim than anonymous praise.
  */
-export function Proof() {
+export function Proof({ locale, dictionary }: { locale: Locale; dictionary: AppDictionary }) {
   return (
     <Section id="proof" scheme="dark">
       <div className="gutter mb-14 flex flex-col gap-4 border-b border-rule pb-6">
-        <span className="label text-content-faint">06 — Proof</span>
-        <h2 className="font-display text-title leading-none">Who I work with.</h2>
+        <span className="label text-content-faint">{dictionary.home.proof.eyebrow}</span>
+        <h2 className="font-display text-title leading-none">
+          {dictionary.home.proof.title}
+        </h2>
         <p className="max-w-2xl text-sm leading-relaxed text-content-muted">
-          {relationshipsIntro}
+          {translateRelationshipsIntro(relationshipsIntro, locale)}
         </p>
       </div>
 
       <Marquee duration={52} className="mb-6">
         {relationships.map((r) => (
-          <RelationshipChip key={r.name} name={r.name} engagement={r.engagement} slug={r.projectSlug} />
+          <RelationshipChip
+            key={r.name}
+            locale={locale}
+            name={r.name}
+            engagement={translateEngagement(r.engagement, locale)}
+            slug={r.projectSlug}
+          />
         ))}
       </Marquee>
 
@@ -34,8 +50,9 @@ export function Proof() {
         {[...relationships].reverse().map((r) => (
           <RelationshipChip
             key={`${r.name}-b`}
+            locale={locale}
             name={r.name}
-            engagement={r.industry}
+            engagement={translateIndustry(r.industry, locale)}
             slug={r.projectSlug}
           />
         ))}
@@ -60,10 +77,12 @@ export function Proof() {
 }
 
 function RelationshipChip({
+  locale,
   name,
   engagement,
   slug,
 }: {
+  locale: Locale;
   name: string;
   engagement: string;
   slug?: string;
@@ -80,7 +99,7 @@ function RelationshipChip({
   if (!slug || !isPublicSlug(slug)) return content;
 
   return (
-    <Link href={`/work/${slug}`} className="transition-colors hover:text-accent">
+    <Link href={withLocale(locale, `/work/${slug}`)} className="transition-colors hover:text-accent">
       {content}
     </Link>
   );

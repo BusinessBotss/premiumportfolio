@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { Media } from "@/components/ui/media";
+import type { Locale } from "@/i18n/config";
+import { translateDiscipline } from "@/i18n/localized-content";
+import { withLocale } from "@/i18n/routing";
 import type { PublicProject } from "@/types/portfolio";
 import { cn, pad } from "@/lib/utils";
 
 interface ProjectCardProps {
   project: PublicProject;
+  locale: Locale;
   /** Display index, used for the editorial numbering. */
   index: number;
   sizes: string;
@@ -16,12 +20,15 @@ interface ProjectCardProps {
 
 export function ProjectCard({
   project,
+  locale,
   index,
   sizes,
   priority,
   className,
   ratio,
 }: ProjectCardProps) {
+  const secondary = project.gallery?.find((asset) => asset.id !== project.cover.id);
+
   return (
     <article className={className}>
       {/*
@@ -36,15 +43,29 @@ export function ProjectCard({
         `hover:` only compiles under `@media (hover: hover)`, so nothing
         sticks on touch.
       */}
-      <Link href={`/work/${project.slug}`} className="group block">
-        <Media
-          asset={project.cover}
-          sizes={sizes}
-          priority={priority}
-          ratio={ratio}
-          className="transition duration-[var(--duration-hover)] ease-editorial group-hover:-translate-y-1.5"
-          imageClassName="transition-transform duration-[var(--duration-hover-image)] ease-editorial group-hover:scale-[1.05]"
-        />
+      <Link href={withLocale(locale, `/work/${project.slug}`)} className="group block">
+        <div className="relative">
+          <Media
+            asset={project.cover}
+            sizes={sizes}
+            priority={priority}
+            ratio={ratio}
+            className="transition duration-[var(--duration-hover)] ease-editorial group-hover:-translate-y-1.5"
+            imageClassName="transition-transform duration-[var(--duration-hover-image)] ease-editorial group-hover:scale-[1.05]"
+          />
+          {secondary && (
+            <div
+              aria-hidden
+              className="pointer-events-none absolute bottom-4 right-4 hidden w-[34%] overflow-hidden border border-rule bg-surface shadow-2xl opacity-0 transition duration-[var(--duration-hover-image)] ease-editorial group-hover:translate-y-0 group-hover:opacity-100 md:block"
+            >
+              <Media
+                asset={secondary}
+                sizes="18vw"
+                ratio={secondary.treatment === "contained-portrait" ? 4 / 5 : 1}
+              />
+            </div>
+          )}
+        </div>
 
         <div className="mt-5 flex items-start justify-between gap-6">
           <div className="flex flex-col gap-1.5">
@@ -80,7 +101,7 @@ export function ProjectCard({
           <ul className="flex flex-wrap gap-x-4 gap-y-1">
             {project.disciplines.slice(0, 3).map((d) => (
               <li key={d} className="label text-content-faint">
-                {d}
+                {translateDiscipline(d, locale)}
               </li>
             ))}
           </ul>
@@ -101,15 +122,17 @@ export function ProjectCard({
 export function ProjectRow({
   project,
   index,
+  locale,
   showYear = true,
 }: {
   project: PublicProject;
   index: number;
+  locale: Locale;
   showYear?: boolean;
 }) {
   return (
     <Link
-      href={`/work/${project.slug}`}
+      href={withLocale(locale, `/work/${project.slug}`)}
       className={cn(
         "group relative grid grid-cols-12 items-center gap-4 border-b border-rule py-6",
         "transition duration-[var(--duration-hover)] ease-editorial hover:text-accent",

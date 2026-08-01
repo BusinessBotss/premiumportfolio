@@ -1,0 +1,22 @@
+export const common = {
+  availability: "Verfügbar für ausgewählte Projekte",
+  siteTitle: "Elias — Digitale Systeme, Markenentwicklung & Hospitality-Strategie",
+  positioning:
+    "Ich entwickle digitale Systeme, Produkte und Marken für Unternehmen in Hospitality, Immobilien, Fitness und Lifestyle: von der Strategie bis zum Launch.",
+  role: "Digitale Systeme, Produkt & Markenentwicklung",
+  location: "Palma de Mallorca, Spanien",
+  startProject: "Projekt starten",
+  preferWhatsapp: "Lieber WhatsApp?",
+  allWork: "Alle Arbeiten",
+  seeWork: "Arbeiten ansehen",
+  liveProject: "Live-Projekt ansehen",
+  unavailable: "Die finale Arbeit ist nicht öffentlich verfügbar.",
+  selectedWork: "Ausgewählte Arbeiten",
+  nextProject: "Nächstes Projekt",
+  gallery: "Galerie",
+  shareProject: "Projekt teilen",
+  copyLink: "Link kopieren",
+  copied: "Kopiert",
+  languageLabel: "Sprache",
+  skipToContent: "Zum Inhalt springen",
+};

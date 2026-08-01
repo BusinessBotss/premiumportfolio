@@ -7,6 +7,10 @@ import { Media } from "@/components/ui/media";
 import { WordRotate } from "@/components/motion/word-rotate";
 import { industries } from "@/data/industries";
 import { isPublicSlug } from "@/data/projects";
+import type { Locale } from "@/i18n/config";
+import type { AppDictionary } from "@/i18n/dictionaries";
+import { localizeIndustry } from "@/i18n/localized-content";
+import { withLocale } from "@/i18n/routing";
 import { EASE_EDITORIAL } from "@/lib/motion";
 import { pad } from "@/lib/utils";
 
@@ -17,19 +21,22 @@ import { pad } from "@/lib/utils";
  * carries the same information — the visual is an enhancement, never the only
  * way to read the section. Sectors without delivered work say so.
  */
-export function Industries() {
+export function Industries({ locale, dictionary }: { locale: Locale; dictionary: AppDictionary }) {
+  const localizedIndustries = industries.map((industry) => localizeIndustry(industry, locale));
   const [active, setActive] = useState(0);
-  const preview = industries[active];
+  const preview = localizedIndustries[active];
 
   return (
     <section data-scheme="paper" className="bg-surface py-24 text-content md:py-32 lg:py-40">
       <div className="gutter">
         <div className="mb-16 flex flex-col gap-3 border-b border-rule pb-6">
-          <span className="label text-content-faint">04 — Industries</span>
+          <span className="label text-content-faint">
+            {dictionary.home.industries.eyebrow}
+          </span>
           <h2 className="flex flex-wrap items-baseline gap-x-3 font-display text-title leading-none">
-            Work that lives in{" "}
+            {dictionary.home.industries.titlePrefix}{" "}
             <WordRotate
-              words={industries.map((i) => i.name)}
+              words={localizedIndustries.map((i) => i.name)}
               className="text-accent"
             />
           </h2>
@@ -37,7 +44,7 @@ export function Industries() {
 
         <div className="grid gap-12 lg:grid-cols-12">
           <ul className="lg:col-span-7">
-            {industries.map((industry, i) => (
+            {localizedIndustries.map((industry, i) => (
               <li key={industry.name}>
                 <div
                   onMouseEnter={() => setActive(i)}
@@ -53,7 +60,7 @@ export function Industries() {
                         </h3>
                         {!industry.hasProjectExperience && (
                           <span className="label text-content-faint">
-                            No published project
+                            {dictionary.home.industries.noProject}
                           </span>
                         )}
                       </div>
@@ -69,7 +76,7 @@ export function Industries() {
                           {industry.projectSlugs.filter(isPublicSlug).map((slug) => (
                             <li key={slug}>
                               <Link
-                                href={`/work/${slug}`}
+                                href={withLocale(locale, `/work/${slug}`)}
                                 className="label text-content-muted underline-offset-4 transition-colors hover:text-accent hover:underline"
                               >
                                 {slug.replace(/-/g, " ")}
