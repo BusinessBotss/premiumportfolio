@@ -13,6 +13,7 @@ import { Media } from "@/components/ui/media";
 import { Section } from "@/components/ui/section";
 import { archiveAssets, archiveCollections, getAssets } from "@/data/assets";
 import { projects } from "@/data/projects";
+import { publicPrototypes } from "@/data/prototypes";
 import { isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { withLocale } from "@/i18n/routing";
@@ -40,11 +41,13 @@ function filtersFor(assetId: string, projectId?: string): ArchiveFilter[] {
   const filters: ArchiveFilter[] = [];
   if (/cover|app|interface|bots|vincxx|buborant/i.test(assetId)) filters.push("web");
   if (/flyer|campaign|hybryd|ohlala|logo/i.test(assetId)) filters.push("brand");
+  if (/automation|bots|whatsapp|macbook|interface/i.test(assetId)) filters.push("automation");
   if (/lounge|buborant|beach|reis/i.test(assetId) || projectId === "my-lounge-palmanova") filters.push("hospitality");
   if (/rodrigo|jeremy/i.test(assetId) || projectId === "rodrigo-zabala") filters.push("realEstate");
   if (/gym|hybryd|wellness/i.test(assetId) || projectId === "gym-tonic-app") filters.push("fitness");
   if (/charter|marine|boat|DJI|063/i.test(assetId) || projectId === "mallorca-charter-experiences") filters.push("marine");
   if (/visual-campaign|tiktok|content/i.test(assetId)) filters.push("growth");
+  if (/proposal|sales|pitch|partner/i.test(assetId)) filters.push("proposals");
   return filters.length ? filters : ["web"];
 }
 
@@ -121,6 +124,62 @@ export default async function ArchivePage({ params }: PageProps) {
         </Section>
       )}
 
+      {publicPrototypes.length > 0 && (
+        <Section scheme="dark" className="py-16 md:py-24">
+          <div className="gutter mb-10 flex flex-col gap-3 border-b border-rule pb-6">
+            <span className="label text-content-faint">{dictionary.archive.prototypes}</span>
+            <p className="max-w-xl text-sm leading-relaxed text-content-muted">
+              {dictionary.archive.prototypesText}
+            </p>
+          </div>
+
+          <ul className="gutter grid gap-px overflow-hidden border border-rule bg-rule md:grid-cols-2 lg:grid-cols-3">
+            {publicPrototypes.map((prototype, i) => {
+              const asset = prototype.assetId ? getAssets([prototype.assetId])[0] : undefined;
+              const content = (
+                <div className="flex h-full flex-col gap-5 bg-surface p-6 transition-colors hover:bg-surface/90">
+                  {asset && (
+                    <Media
+                      asset={asset}
+                      ratio={16 / 10}
+                      sizes="(min-width: 1024px) 30vw, (min-width: 768px) 50vw, 100vw"
+                    />
+                  )}
+                  <span className="label text-content-faint">{prototype.category}</span>
+                  <h2 className="font-display text-2xl leading-tight">
+                    {prototype.label}
+                  </h2>
+                  {prototype.notes && (
+                    <p className="text-sm leading-relaxed text-content-muted">
+                      {prototype.notes}
+                    </p>
+                  )}
+                </div>
+              );
+
+              return (
+                <li key={prototype.id}>
+                  <Reveal delay={(i % 3) * 0.05}>
+                    {prototype.href ? (
+                      <a
+                        href={prototype.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="block h-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      content
+                    )}
+                  </Reveal>
+                </li>
+              );
+            })}
+          </ul>
+        </Section>
+      )}
+
       {archiveCollections.length > 0 && (
         <Section scheme="light" className="py-16 md:py-24">
           <div className="gutter mb-10 flex flex-col gap-3 border-b border-rule pb-6">
@@ -145,7 +204,7 @@ export default async function ArchivePage({ params }: PageProps) {
                       {collectionCopy?.category ?? collection.category}
                     </span>
                     <h2 className="font-display text-2xl leading-tight">
-                      {collection.title}
+                      {collectionCopy?.title ?? collection.title}
                     </h2>
                     {(collectionCopy?.description ?? collection.description) && (
                       <p className="text-sm leading-relaxed text-content-muted">

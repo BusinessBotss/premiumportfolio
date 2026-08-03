@@ -33,7 +33,7 @@ export const capabilities: Capability[] = [
       "Booking and ordering flows",
       "Interface design",
     ],
-    relatedProjectSlugs: ["gym-tonic-app", "buborant", "vincxx"],
+    relatedProjectSlugs: ["gym-tonic-app", "vincxx"],
   },
   {
     id: "hospitality-technology",
@@ -46,7 +46,7 @@ export const capabilities: Capability[] = [
       "Guest communication",
       "Venue digital presence",
     ],
-    relatedProjectSlugs: ["buborant", "my-lounge-palmanova"],
+    relatedProjectSlugs: ["my-lounge-palmanova"],
   },
   {
     id: "brand-direction",

@@ -27,7 +27,9 @@ export function ProjectCard({
   className,
   ratio,
 }: ProjectCardProps) {
-  const secondary = project.gallery?.find((asset) => asset.id !== project.cover.id);
+  const secondary = project.gallery?.find(
+    (asset) => asset.id !== project.cover.id && !asset.usage.includes("contextual-gallery"),
+  );
 
   return (
     <article className={className}>

@@ -145,8 +145,26 @@ export type AssetOrigin =
   | "licensed-stock"
   | "visual-reference";
 
-export type AssetUsage = "selected-work" | "archive" | "industry" | "internal";
-export type AssetVisibility = "public" | "contextual" | "internal-reference";
+export type AssetUsage =
+  | "selected-work"
+  | "archive"
+  | "industry"
+  | "internal"
+  | "contextual-gallery"
+  | "business-bots-gallery"
+  | "archive-campaigns"
+  | "about-support"
+  | "hospitality-systems"
+  | "booking-interface"
+  | "archive-web-product";
+export type AssetVisibility =
+  | "public"
+  | "supporting"
+  | "contextual"
+  | "internal-private"
+  | "external-reference"
+  | "excluded"
+  | "internal-reference";
 
 export interface ImageAsset {
   id: string;
@@ -156,6 +174,7 @@ export interface ImageAsset {
   origin: AssetOrigin;
   usage: AssetUsage[];
   visibility?: AssetVisibility;
+  category?: string;
   /** width / height. Reserves layout space and prevents CLS. */
   aspectRatio: number;
   projectId?: string;
@@ -163,6 +182,8 @@ export interface ImageAsset {
   featured?: boolean;
   /** Cloudinary gravity hint, e.g. "auto", "face", "north". */
   focus?: string;
+  focalPosition?: string;
+  notes?: string;
   /** Editorial rendering treatment for non-photographic assets. */
   treatment?: "business-bots-cover" | "contained-portrait";
 }
@@ -176,6 +197,17 @@ export interface AssetCollection {
   assetIds: string[];
   featured?: boolean;
   archiveVisible: boolean;
+}
+
+export interface PrototypeEntry {
+  id: string;
+  label: string;
+  category: string;
+  href?: string;
+  assetId?: string;
+  collectionId?: string;
+  visibility: "public" | "supporting" | "internal-private";
+  notes?: string;
 }
 
 // ── Relationships ─────────────────────────────────────────────────────────

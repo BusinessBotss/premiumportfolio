@@ -44,7 +44,7 @@ const catalogue: Project[] = [
     ],
     externalUrl: "http://hybrydwaitlist.web.app/",
     cover: getAsset("hybryd-cover"),
-    gallery: getAssets(["hybryd-cover", "gym-tonic-banner", "business-bots-interface-01"]),
+    gallery: getAssets(["hybryd-cover", "fitness-editorial-wall-artwork"]),
   },
   {
     id: "gym-tonic-app",
@@ -71,7 +71,7 @@ const catalogue: Project[] = [
     ],
     externalUrl: "https://gymtonicapp.goodbarber.app/index.html?standalone=1",
     cover: getAsset("gym-tonic-cover"),
-    gallery: getAssets(["gym-tonic-cover", "gym-tonic-banner"]),
+    gallery: getAssets(["gym-tonic-cover"]),
   },
   {
     id: "buborant",
@@ -81,9 +81,9 @@ const catalogue: Project[] = [
     category: "Hospitality Technology",
     tier: "featured",
     status: "live",
-    editorialStatus: "published",
+    editorialStatus: "review",
     contentCompleteness: "partial",
-    indexable: true,
+    indexable: false,
     industries: ["Food & Beverage", "Hospitality"],
     disciplines: ["Product Design", "Web Development", "Operations"],
     summary:
@@ -96,8 +96,8 @@ const catalogue: Project[] = [
       "Mobile-first ordering flow",
     ],
     externalUrl: "https://businessbotss.github.io/buborant/",
-    cover: getAsset("buborant-cover"),
-    gallery: getAssets(["buborant-cover", "business-bots-interface-02"]),
+    cover: getAsset("buborant-qr-table-system-reference"),
+    gallery: getAssets(["buborant-qr-table-system-reference"]),
   },
   {
     id: "reis-infinite-flavors",
@@ -151,8 +151,8 @@ const catalogue: Project[] = [
     summary:
       "Venue site for a Palmanova lounge, structured around location, offer and direct contact.",
     deliverables: ["Venue site", "Menu and offer presentation", "Direct contact routing"],
-    externalUrl: "https://businessbotss.github.io/myloungepalmanova/",
-    cover: getAsset("my-lounge-cover"),
+    externalUrl: "https://my-lounge-palmanova.vercel.app/#reservar",
+    cover: getAsset("my-lounge-menu-interface"),
   },
   {
     id: "jeremy-lerognon",
@@ -190,7 +190,6 @@ const catalogue: Project[] = [
     summary:
       "Digital presence for a slow-fashion label, built to carry the product photography rather than compete with it.",
     deliverables: ["Brand site", "Collection presentation", "Enquiry flow"],
-    externalUrl: "https://businessbotss.github.io/ohlalafashion/",
     cover: getAsset("ohlala-cover"),
   },
   {
@@ -327,9 +326,9 @@ const catalogue: Project[] = [
     cover: getAsset("business-bots-logo"),
     gallery: getAssets([
       "business-bots-logo",
-      "business-bots-consultancy",
-      "business-bots-interface-01",
-      "business-bots-interface-02",
+      "business-bots-macbook-01",
+      "business-bots-consultancy-flyer",
+      "business-bots-macbook-02",
     ]),
   },
   {

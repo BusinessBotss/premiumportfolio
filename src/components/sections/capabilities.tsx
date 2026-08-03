@@ -29,10 +29,10 @@ const SPANS = [
 
 const CAPABILITY_MEDIA: Record<string, string> = {
   "ai-systems": "business-bots-automation",
-  "digital-products": "business-bots-interface-01",
-  "hospitality-technology": "buborant-cover",
+  "digital-products": "business-bots-macbook-01",
+  "hospitality-technology": "bubo-beach-landing-interface",
   "brand-direction": "visual-campaign-flyer-01",
-  "commercial-expansion": "business-bots-consultancy",
+  "commercial-expansion": "business-bots-consultancy-flyer",
 };
 
 export function Capabilities({ locale, dictionary }: { locale: Locale; dictionary: AppDictionary }) {
@@ -75,7 +75,12 @@ export function Capabilities({ locale, dictionary }: { locale: Locale; dictionar
                   <div className="max-w-sm border border-rule/70">
                     <Media
                       asset={getAsset(CAPABILITY_MEDIA[capability.id])}
-                      ratio={16 / 10}
+                      ratio={
+                        getAsset(CAPABILITY_MEDIA[capability.id]).treatment ===
+                        "contained-portrait"
+                          ? getAsset(CAPABILITY_MEDIA[capability.id]).aspectRatio
+                          : 16 / 10
+                      }
                       sizes="(min-width: 1024px) 22vw, 100vw"
                     />
                     {getAsset(CAPABILITY_MEDIA[capability.id]).origin === "visual-reference" && (

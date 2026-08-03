@@ -75,7 +75,8 @@ export function Media({
     <div
       className={cn(
         "relative overflow-hidden bg-surface-raised",
-        containedPortrait && "bg-[#ebe6dc]",
+        containedPortrait &&
+          (asset.category === "business-development" ? "bg-[#101112]" : "bg-[#ebe6dc]"),
         className,
       )}
       style={{

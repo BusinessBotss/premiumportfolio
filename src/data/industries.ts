@@ -20,7 +20,7 @@ export const industries: IndustryEntry[] = [
     name: "Hospitality",
     hasProjectExperience: true,
     note: "Venue presence, ordering and guest communication for bars, lounges and beach clubs.",
-    projectSlugs: ["my-lounge-palmanova", "buborant"],
+    projectSlugs: ["my-lounge-palmanova"],
     image: coverOf("my-lounge-palmanova"),
   },
   {
@@ -34,8 +34,8 @@ export const industries: IndustryEntry[] = [
     name: "Food & Beverage",
     hasProjectExperience: true,
     note: "Ordering systems and brand presence for restaurants, private chefs and venues.",
-    projectSlugs: ["buborant", "reis-infinite-flavors"],
-    image: coverOf("buborant"),
+    projectSlugs: ["reis-infinite-flavors"],
+    image: coverOf("reis-infinite-flavors"),
   },
   {
     name: "Real Estate",

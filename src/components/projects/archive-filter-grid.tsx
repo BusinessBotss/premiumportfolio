@@ -15,10 +15,12 @@ export type ArchiveFilter =
   | "web"
   | "brand"
   | "hospitality"
+  | "automation"
   | "realEstate"
   | "fitness"
   | "marine"
-  | "growth";
+  | "growth"
+  | "proposals";
 
 export interface FilteredAsset {
   asset: ImageAsset;

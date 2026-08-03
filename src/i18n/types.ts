@@ -124,9 +124,11 @@ export interface Dictionary {
     materialText: string;
     collections: string;
     collectionsText: string;
+    prototypes: string;
+    prototypesText: string;
     relatedProject: string;
     filters: Record<string, string>;
-    collectionCopy: Record<string, { category: string; description?: string }>;
+    collectionCopy: Record<string, { title?: string; category: string; description?: string }>;
   };
   about: {
     eyebrow: string;
