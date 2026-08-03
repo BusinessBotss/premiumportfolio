@@ -8,23 +8,13 @@ import type { AppDictionary } from "@/i18n/dictionaries";
 import { withLocale } from "@/i18n/routing";
 import { localizeProjects } from "@/lib/localized-projects";
 
-/**
- * Selected Work.
- *
- * An asymmetric editorial grid rather than a card wall: the frames differ in
- * width, ratio and vertical offset, so the eye moves through the work instead
- * of scanning a table. Every entry leads to an internal case study.
- */
-
-/** Column span, frame ratio and offset per position in the grid. */
+/** Column span and offset per position in the typography-led grid. */
 const LAYOUT = [
-  { span: "lg:col-span-7", ratio: 4 / 3, offset: "" },
-  { span: "lg:col-span-5", ratio: 3 / 4, offset: "lg:mt-32" },
-  { span: "lg:col-span-5", ratio: 3 / 4, offset: "" },
-  { span: "lg:col-span-7", ratio: 4 / 3, offset: "lg:mt-24" },
+  { span: "lg:col-span-7", offset: "" },
+  { span: "lg:col-span-5", offset: "lg:mt-12" },
+  { span: "lg:col-span-5", offset: "" },
+  { span: "lg:col-span-7", offset: "lg:mt-10" },
 ] as const;
-
-const SIZES = "(max-width: 1024px) 100vw, 55vw";
 
 export function SelectedWork({ locale, dictionary }: { locale: Locale; dictionary: AppDictionary }) {
   const localizedFeatured = localizeProjects(featuredProjects, locale);
@@ -62,9 +52,6 @@ export function SelectedWork({ locale, dictionary }: { locale: Locale; dictionar
                   project={project}
                   locale={locale}
                   index={i}
-                  ratio={layout.ratio}
-                  sizes={SIZES}
-                  priority={i === 0}
                 />
               </Reveal>
             );

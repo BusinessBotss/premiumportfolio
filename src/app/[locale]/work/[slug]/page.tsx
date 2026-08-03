@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Carousel } from "@/components/motion/carousel";
 import { MaskText } from "@/components/motion/mask-text";
 import { Reveal } from "@/components/motion/reveal";
 import { RippleButton } from "@/components/motion/ripple-button";
 import { ShareButton } from "@/components/motion/share-button";
-import { Media } from "@/components/ui/media";
 import { Section } from "@/components/ui/section";
 import { getNextProject, getProject, projects } from "@/data/projects";
 import { SITE_URL, site } from "@/data/site";
@@ -40,18 +38,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: localized.summary,
     path: `/work/${project.slug}`,
     locale: rawLocale,
-    image: project.cover.src,
-    imageFit:
-      project.cover.treatment === "contained-portrait" ||
-      project.cover.treatment === "business-bots-cover"
-        ? "contain"
-        : "cover",
-    imageBackground:
-      project.cover.treatment === "business-bots-cover"
-        ? "101112"
-        : project.cover.treatment === "contained-portrait"
-          ? "ebe6dc"
-          : undefined,
     type: "article",
     noindex: !isIndexableProject(project),
   });
@@ -68,8 +54,6 @@ export default async function CaseStudyPage({ params }: PageProps) {
   const nextSource = getNextProject(slug);
   const next = nextSource ? localizeProject(nextSource, locale) : undefined;
   const url = `${SITE_URL}${withLocale(locale, `/work/${project.slug}`)}`;
-  const hasContainedGallery =
-    project.gallery?.some((asset) => asset.treatment === "contained-portrait") ?? false;
 
   return (
     <>
@@ -83,7 +67,6 @@ export default async function CaseStudyPage({ params }: PageProps) {
               slug: project.slug,
               locale,
               year: project.year,
-              image: project.cover.src,
               client: project.client,
             }),
           ),
@@ -106,15 +89,6 @@ export default async function CaseStudyPage({ params }: PageProps) {
           <p className="max-w-2xl text-lead leading-snug text-content-muted">
             {project.summary}
           </p>
-        </div>
-
-        <div className="gutter mt-14">
-          <Media
-            asset={project.cover}
-            sizes="(min-width: 1280px) 1200px, 100vw"
-            priority
-            ratio={project.cover.treatment === "contained-portrait" ? 4 / 3 : 16 / 9}
-          />
         </div>
       </Section>
 
@@ -216,38 +190,6 @@ export default async function CaseStudyPage({ params }: PageProps) {
         </Section>
       )}
 
-      {project.gallery && project.gallery.length > 0 && (
-        <Section scheme="paper" className="py-20 md:py-24">
-          <div className="gutter mb-10">
-            <span className="label text-content-faint">{dictionary.common.gallery}</span>
-          </div>
-          {hasContainedGallery ? (
-            <ul className="gutter grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {project.gallery.map((asset, i) => (
-                <Reveal key={asset.id} delay={(i % 4) * 0.05}>
-                  <li>
-                    <Media
-                      asset={asset}
-                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    />
-                  </li>
-                </Reveal>
-              ))}
-            </ul>
-          ) : (
-            <div className="gutter">
-              <Carousel label={`${project.title} ${dictionary.common.gallery}`}>
-                {project.gallery.map((asset) => (
-                  <div key={asset.id} className="w-full shrink-0 snap-start md:w-[46vw]">
-                    <Media asset={asset} sizes="(min-width: 768px) 46vw, 100vw" />
-                  </div>
-                ))}
-              </Carousel>
-            </div>
-          )}
-        </Section>
-      )}
-
       <Section scheme="light" className="py-16 md:py-20">
         <div className="gutter flex flex-col gap-8 border-t border-rule pt-10 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col gap-3">
@@ -282,14 +224,6 @@ export default async function CaseStudyPage({ params }: PageProps) {
               <p className="max-w-sm text-sm leading-relaxed text-content-muted">
                 {next.summary}
               </p>
-            </div>
-            <div className="mt-10">
-              <Media
-                asset={next.cover}
-                sizes="(min-width: 1280px) 1200px, 100vw"
-                ratio={21 / 9}
-                imageClassName="transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
-              />
             </div>
           </Link>
         </Section>

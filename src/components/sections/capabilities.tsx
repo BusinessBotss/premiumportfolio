@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { HexagonBackground } from "@/components/motion/hexagon-background";
 import { Reveal } from "@/components/motion/reveal";
-import { Media } from "@/components/ui/media";
 import { Section } from "@/components/ui/section";
-import { getAsset } from "@/data/assets";
 import { capabilities } from "@/data/capabilities";
 import { getProject } from "@/data/projects";
 import type { Locale } from "@/i18n/config";
@@ -26,14 +24,6 @@ const SPANS = [
   "lg:col-span-3",
   "lg:col-span-3",
 ] as const;
-
-const CAPABILITY_MEDIA: Record<string, string> = {
-  "ai-systems": "business-bots-automation",
-  "digital-products": "business-bots-macbook-01",
-  "hospitality-technology": "bubo-beach-landing-interface",
-  "brand-direction": "visual-campaign-flyer-01",
-  "commercial-expansion": "business-bots-consultancy-flyer",
-};
 
 export function Capabilities({ locale, dictionary }: { locale: Locale; dictionary: AppDictionary }) {
   const localizedCapabilities = capabilities.map((capability) => localizeCapability(capability, locale));
@@ -70,26 +60,6 @@ export function Capabilities({ locale, dictionary }: { locale: Locale; dictionar
                 <p className="max-w-md text-sm leading-relaxed text-content-muted">
                   {capability.description}
                 </p>
-
-                {CAPABILITY_MEDIA[capability.id] && (
-                  <div className="max-w-sm border border-rule/70">
-                    <Media
-                      asset={getAsset(CAPABILITY_MEDIA[capability.id])}
-                      ratio={
-                        getAsset(CAPABILITY_MEDIA[capability.id]).treatment ===
-                        "contained-portrait"
-                          ? getAsset(CAPABILITY_MEDIA[capability.id]).aspectRatio
-                          : 16 / 10
-                      }
-                      sizes="(min-width: 1024px) 22vw, 100vw"
-                    />
-                    {getAsset(CAPABILITY_MEDIA[capability.id]).origin === "visual-reference" && (
-                      <p className="label px-3 py-2 text-content-faint">
-                        {dictionary.home.capabilities.referenceLabel}
-                      </p>
-                    )}
-                  </div>
-                )}
 
                 <ul className="mt-auto flex flex-wrap gap-x-3 gap-y-2 pt-2">
                   {capability.areas.map((area) => (

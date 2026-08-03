@@ -19,7 +19,7 @@ interface BuildMetadataArgs {
   /** Route path beginning with a slash, e.g. "/work/hybryd-mallorca". */
   path: string;
   locale?: Locale;
-  /** Full Cloudinary URL. Falls back to the site OG image. */
+  /** Full Cloudinary URL. Falls back to the personal-brand portrait. */
   image?: string;
   imageFit?: "cover" | "contain";
   imageBackground?: string;
@@ -53,7 +53,7 @@ export function buildMetadata({
     locales.map((l) => [l, `${SITE_URL}${withLocale(l, path)}`]),
   );
 
-  const ogImage = cld(image ?? site.media.ogImage, {
+  const ogImage = cld(image ?? site.media.portrait, {
     width: OG_SIZE.width,
     height: OG_SIZE.height,
     crop: imageFit === "contain" ? "pad" : "fill",
@@ -126,7 +126,6 @@ export function projectSchema(input: {
   locale?: Locale;
   /** Omitted entirely when unverified — an absent field beats a wrong date. */
   year?: string;
-  image: string;
   client?: string;
 }) {
   const locale = input.locale ?? "en";
@@ -137,7 +136,6 @@ export function projectSchema(input: {
     description: input.summary,
     url: `${SITE_URL}${withLocale(locale, `/work/${input.slug}`)}`,
     ...(input.year && { dateCreated: input.year }),
-    image: input.image,
     creator: { "@type": "Person", name: site.name, url: `${SITE_URL}${withLocale(locale)}` },
     ...(input.client && { about: input.client }),
   };

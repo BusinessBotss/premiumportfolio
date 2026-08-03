@@ -1,9 +1,6 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "motion/react";
-import { Media } from "@/components/ui/media";
 import { WordRotate } from "@/components/motion/word-rotate";
 import { industries } from "@/data/industries";
 import { isPublicSlug } from "@/data/projects";
@@ -11,7 +8,6 @@ import type { Locale } from "@/i18n/config";
 import type { AppDictionary } from "@/i18n/dictionaries";
 import { localizeIndustry } from "@/i18n/localized-content";
 import { withLocale } from "@/i18n/routing";
-import { EASE_EDITORIAL } from "@/lib/motion";
 import { pad } from "@/lib/utils";
 
 /**
@@ -23,8 +19,6 @@ import { pad } from "@/lib/utils";
  */
 export function Industries({ locale, dictionary }: { locale: Locale; dictionary: AppDictionary }) {
   const localizedIndustries = industries.map((industry) => localizeIndustry(industry, locale));
-  const [active, setActive] = useState(0);
-  const preview = localizedIndustries[active];
 
   return (
     <section data-scheme="paper" className="bg-surface py-24 text-content md:py-32 lg:py-40">
@@ -42,15 +36,11 @@ export function Industries({ locale, dictionary }: { locale: Locale; dictionary:
           </h2>
         </div>
 
-        <div className="grid gap-12 lg:grid-cols-12">
-          <ul className="lg:col-span-7">
+        <div className="grid gap-12">
+          <ul className="grid gap-x-10 md:grid-cols-2">
             {localizedIndustries.map((industry, i) => (
               <li key={industry.name}>
-                <div
-                  onMouseEnter={() => setActive(i)}
-                  onFocus={() => setActive(i)}
-                  className="group border-b border-rule py-6"
-                >
+                <div className="group border-b border-rule py-6">
                   <div className="flex items-baseline gap-5">
                     <span className="label text-content-faint">{pad(i + 1)}</span>
                     <div className="flex flex-1 flex-col gap-2">
@@ -91,37 +81,6 @@ export function Industries({ locale, dictionary }: { locale: Locale; dictionary:
               </li>
             ))}
           </ul>
-
-          <div className="hidden lg:col-span-5 lg:block">
-            <div className="sticky top-28">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={preview.name}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.35, ease: EASE_EDITORIAL }}
-                >
-                  {preview.image ? (
-                    <Media
-                      asset={preview.image}
-                      ratio={4 / 5}
-                      sizes="(max-width: 1024px) 0px, 38vw"
-                    />
-                  ) : (
-                    <div
-                      className="flex items-end border border-rule p-8"
-                      style={{ aspectRatio: 4 / 5 }}
-                    >
-                      <p className="font-display text-2xl text-content-muted">
-                        {preview.name}
-                      </p>
-                    </div>
-                  )}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
         </div>
       </div>
     </section>

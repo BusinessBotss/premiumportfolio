@@ -185,7 +185,7 @@ export interface ImageAsset {
   focalPosition?: string;
   notes?: string;
   /** Editorial rendering treatment for non-photographic assets. */
-  treatment?: "business-bots-cover" | "contained-portrait";
+  treatment?: "business-bots-cover" | "contained-portrait" | "branded-fallback";
 }
 
 export interface AssetCollection {

@@ -32,6 +32,59 @@ export function Media({
   const placeholder = cldPlaceholder(asset.src);
   const businessBotsCover = asset.treatment === "business-bots-cover";
   const containedPortrait = asset.treatment === "contained-portrait";
+  const brandedFallback = asset.treatment === "branded-fallback";
+
+  if (brandedFallback) {
+    const copy =
+      asset.id === "buborant-branded-fallback"
+        ? {
+            kicker: "Hospitality technology",
+            title: "Buborant",
+            body: "QR table-ordering interface / public case-study fallback",
+          }
+        : {
+            kicker: asset.category ?? "Case study",
+            title: asset.projectId ?? "Project",
+            body: "Text-led fallback visual",
+          };
+
+    return (
+      <div
+        role="img"
+        aria-label={asset.alt}
+        className={cn(
+          "grain relative overflow-hidden bg-[#17120d] text-white",
+          className,
+        )}
+        style={{ aspectRatio: ratio ?? asset.aspectRatio }}
+      >
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-[0.16]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.16) 1px, transparent 1px)",
+            backgroundSize: "44px 44px",
+          }}
+        />
+        <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/45" />
+        <div className="absolute inset-0 flex flex-col justify-between p-5 md:p-8">
+          <div className="flex items-center justify-between gap-4">
+            <span className="label text-white/50">{copy.kicker}</span>
+            <span className="label text-white/35">Public fallback</span>
+          </div>
+          <div className="max-w-[28rem]">
+            <p className="font-display text-5xl leading-[0.88] md:text-7xl lg:text-8xl">
+              {copy.title}
+            </p>
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/62 md:text-base">
+              {copy.body}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (businessBotsCover) {
     return (

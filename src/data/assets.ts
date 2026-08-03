@@ -8,7 +8,7 @@
 import type { AssetCollection, ImageAsset } from "@/types/portfolio";
 import { site } from "@/data/site";
 
-export const imageAssets: ImageAsset[] = [
+const rawImageAssets: ImageAsset[] = [
   {
     id: "hybryd-cover",
     src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773187052/4_v4ssug.png",
@@ -55,6 +55,21 @@ export const imageAssets: ImageAsset[] = [
     featured: false,
     notes:
       "Removed from public QR table-system assignment pending a better approved public representation.",
+  },
+  {
+    id: "buborant-branded-fallback",
+    src: "https://res.cloudinary.com/ddjl4shzl/image/upload/c_pad,w_1200,h_630,b_rgb:17120d/v1773234816/18_grj8xk.png",
+    alt: "Buborant text-led fallback cover for a QR table-ordering hospitality system.",
+    origin: "original-work",
+    usage: ["selected-work", "archive"],
+    visibility: "public",
+    category: "Hospitality Technology",
+    aspectRatio: 16 / 10,
+    projectId: "buborant",
+    featured: true,
+    treatment: "branded-fallback",
+    notes:
+      "Public fallback used because the approved Buborant screenshot is internal-reference only.",
   },
   {
     id: "reis-cover",
@@ -677,6 +692,15 @@ export const imageAssets: ImageAsset[] = [
   },
 ];
 
+export const imageAssets: ImageAsset[] = rawImageAssets.map((asset) => {
+  if (asset.id === "portrait") return asset;
+  if (asset.visibility === "external-reference" || asset.origin === "visual-reference") {
+    return { ...asset, visibility: "external-reference" };
+  }
+  if (asset.visibility === "excluded") return asset;
+  return { ...asset, visibility: "internal-reference" };
+});
+
 const assetMap = new Map(imageAssets.map((asset) => [asset.id, asset]));
 
 export function getAsset(id: string): ImageAsset {
@@ -728,7 +752,12 @@ export const collections: AssetCollection[] = [
     category: "Booking Systems · Lead Qualification · Customer Support",
     description:
       "Prototype and demo interfaces for booking, enquiry capture, FAQs and service automation.",
-    assetIds: ["cocktail-menu-demo", "bubo-beach-landing-interface", "my-lounge-menu-interface"],
+    assetIds: [
+      "buborant-branded-fallback",
+      "cocktail-menu-demo",
+      "bubo-beach-landing-interface",
+      "my-lounge-menu-interface",
+    ],
     archiveVisible: true,
   },
   {
@@ -737,7 +766,12 @@ export const collections: AssetCollection[] = [
     category: "Hospitality · Digital Menus · Reservations · Booking Funnels",
     description:
       "Hospitality product interfaces and prototypes kept as supporting material rather than full case studies.",
-    assetIds: ["cocktail-menu-demo", "bubo-beach-landing-interface", "dubai-nightlife-booking-interface"],
+    assetIds: [
+      "buborant-branded-fallback",
+      "cocktail-menu-demo",
+      "bubo-beach-landing-interface",
+      "dubai-nightlife-booking-interface",
+    ],
     archiveVisible: true,
   },
   {

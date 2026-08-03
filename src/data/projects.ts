@@ -81,9 +81,9 @@ const catalogue: Project[] = [
     category: "Hospitality Technology",
     tier: "featured",
     status: "live",
-    editorialStatus: "review",
+    editorialStatus: "published",
     contentCompleteness: "partial",
-    indexable: false,
+    indexable: true,
     industries: ["Food & Beverage", "Hospitality"],
     disciplines: ["Product Design", "Web Development", "Operations"],
     summary:
@@ -96,8 +96,8 @@ const catalogue: Project[] = [
       "Mobile-first ordering flow",
     ],
     externalUrl: "https://businessbotss.github.io/buborant/",
-    cover: getAsset("buborant-qr-table-system-reference"),
-    gallery: getAssets(["buborant-qr-table-system-reference"]),
+    cover: getAsset("buborant-branded-fallback"),
+    gallery: getAssets(["buborant-branded-fallback"]),
   },
   {
     id: "reis-infinite-flavors",

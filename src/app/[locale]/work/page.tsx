@@ -24,12 +24,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: dictionary.metadata.work.description,
     path: "/work",
     locale: rawLocale,
-    image: featuredProjects[0]?.cover.src,
   });
 }
 
 const SPANS = ["md:col-span-7", "md:col-span-5", "md:col-span-5", "md:col-span-7"];
-const RATIOS = [4 / 3, 3 / 4, 3 / 4, 4 / 3];
 
 export default async function WorkPage({ params }: PageProps) {
   const { locale: rawLocale } = await params;
@@ -72,9 +70,6 @@ export default async function WorkPage({ params }: PageProps) {
                 project={project}
                 locale={locale}
                 index={i}
-                ratio={RATIOS[i % RATIOS.length]}
-                sizes="(min-width: 768px) 50vw, 100vw"
-                priority={i === 0}
               />
             </Reveal>
           ))}
@@ -97,8 +92,6 @@ export default async function WorkPage({ params }: PageProps) {
                   project={project}
                   locale={locale}
                   index={featuredProjects.length + i}
-                  ratio={4 / 3}
-                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 />
               </Reveal>
             ))}

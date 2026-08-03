@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Media } from "@/components/ui/media";
 import type { Locale } from "@/i18n/config";
 import { translateDiscipline } from "@/i18n/localized-content";
 import { withLocale } from "@/i18n/routing";
@@ -11,65 +10,25 @@ interface ProjectCardProps {
   locale: Locale;
   /** Display index, used for the editorial numbering. */
   index: number;
-  sizes: string;
-  priority?: boolean;
   className?: string;
-  /** Frame ratio. Overrides the asset ratio to build an asymmetric grid. */
-  ratio?: number;
 }
 
 export function ProjectCard({
   project,
   locale,
   index,
-  sizes,
-  priority,
   className,
-  ratio,
 }: ProjectCardProps) {
-  const secondary = project.gallery?.find(
-    (asset) => asset.id !== project.cover.id && !asset.usage.includes("contextual-gallery"),
-  );
-
   return (
     <article className={className}>
-      {/*
-        One pointer state drives the whole card: the frame lifts, the image
-        pushes in behind it, the title steps right and warms to the accent,
-        the caret arrives, and the rule under the disciplines draws itself.
-        Separate durations keep it choreographed rather than simultaneous —
-        the image is the slowest element, so it reads as depth.
-
-        Everything is a CSS transition, so `prefers-reduced-motion` is
-        already handled by the global block in globals.css, and Tailwind's
-        `hover:` only compiles under `@media (hover: hover)`, so nothing
-        sticks on touch.
-      */}
-      <Link href={withLocale(locale, `/work/${project.slug}`)} className="group block">
-        <div className="relative">
-          <Media
-            asset={project.cover}
-            sizes={sizes}
-            priority={priority}
-            ratio={ratio}
-            className="transition duration-[var(--duration-hover)] ease-editorial group-hover:-translate-y-1.5"
-            imageClassName="transition-transform duration-[var(--duration-hover-image)] ease-editorial group-hover:scale-[1.05]"
-          />
-          {secondary && (
-            <div
-              aria-hidden
-              className="pointer-events-none absolute bottom-4 right-4 hidden w-[34%] overflow-hidden border border-rule bg-surface shadow-2xl opacity-0 transition duration-[var(--duration-hover-image)] ease-editorial group-hover:translate-y-0 group-hover:opacity-100 md:block"
-            >
-              <Media
-                asset={secondary}
-                sizes="18vw"
-                ratio={secondary.treatment === "contained-portrait" ? 4 / 5 : 1}
-              />
-            </div>
-          )}
-        </div>
-
-        <div className="mt-5 flex items-start justify-between gap-6">
+      <Link
+        href={withLocale(locale, `/work/${project.slug}`)}
+        className={cn(
+          "group block border-t border-rule py-6 transition duration-[var(--duration-hover)] ease-editorial hover:text-accent",
+          "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent",
+        )}
+      >
+        <div className="flex items-start justify-between gap-6">
           <div className="flex flex-col gap-1.5">
             <h3 className="flex items-baseline gap-2 font-display text-xl leading-tight transition duration-[var(--duration-hover)] ease-editorial group-hover:translate-x-1 group-hover:text-accent md:text-2xl">
               {project.title}
@@ -95,10 +54,10 @@ export function ProjectCard({
           </div>
         </div>
 
-        <div className="relative mt-4 border-t border-rule pt-3">
+        <div className="relative mt-4 pt-3">
           <span
             aria-hidden
-            className="absolute -top-px left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-[var(--duration-hover)] ease-editorial group-hover:scale-x-100"
+            className="absolute top-0 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-[var(--duration-hover)] ease-editorial group-hover:scale-x-100"
           />
           <ul className="flex flex-wrap gap-x-4 gap-y-1">
             {project.disciplines.slice(0, 3).map((d) => (
