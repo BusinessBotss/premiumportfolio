@@ -1,13 +1,13 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from "react";
+import { Media } from "@/components/ui/media";
 import { WordRotate } from "@/components/motion/word-rotate";
 import { industries } from "@/data/industries";
 import { isPublicSlug } from "@/data/projects";
 import type { Locale } from "@/i18n/config";
 import type { AppDictionary } from "@/i18n/dictionaries";
 import { localizeIndustry } from "@/i18n/localized-content";
-import { withLocale } from "@/i18n/routing";
 import { pad } from "@/lib/utils";
 
 /**
@@ -19,6 +19,8 @@ import { pad } from "@/lib/utils";
  */
 export function Industries({ locale, dictionary }: { locale: Locale; dictionary: AppDictionary }) {
   const localizedIndustries = industries.map((industry) => localizeIndustry(industry, locale));
+  const [activeIndex, setActiveIndex] = useState(0);
+  const active = localizedIndustries[activeIndex];
 
   return (
     <section data-scheme="paper" className="bg-surface py-24 text-content md:py-32 lg:py-40">
@@ -36,11 +38,17 @@ export function Industries({ locale, dictionary }: { locale: Locale; dictionary:
           </h2>
         </div>
 
-        <div className="grid gap-12">
-          <ul className="grid gap-x-10 md:grid-cols-2">
+        <div className="grid gap-12 lg:grid-cols-12">
+          <ul className="lg:col-span-7">
             {localizedIndustries.map((industry, i) => (
               <li key={industry.name}>
-                <div className="group border-b border-rule py-6">
+                <button
+                  type="button"
+                  aria-pressed={i === activeIndex}
+                  onClick={() => setActiveIndex(i)}
+                  onFocus={() => setActiveIndex(i)}
+                  className="group w-full border-b border-rule py-6 text-left transition-colors hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                >
                   <div className="flex items-baseline gap-5">
                     <span className="label text-content-faint">{pad(i + 1)}</span>
                     <div className="flex flex-1 flex-col gap-2">
@@ -62,25 +70,55 @@ export function Industries({ locale, dictionary }: { locale: Locale; dictionary:
                       {/* Unpublished slugs are dropped, not greyed out — a
                           link that leads nowhere is worse than no link. */}
                       {industry.projectSlugs?.some(isPublicSlug) && (
-                        <ul className="flex flex-wrap gap-x-4 gap-y-1 pt-1">
+                        <span className="flex flex-wrap gap-x-4 gap-y-1 pt-1">
                           {industry.projectSlugs.filter(isPublicSlug).map((slug) => (
-                            <li key={slug}>
-                              <Link
-                                href={withLocale(locale, `/work/${slug}`)}
-                                className="label text-content-muted underline-offset-4 transition-colors hover:text-accent hover:underline"
-                              >
-                                {slug.replace(/-/g, " ")}
-                              </Link>
-                            </li>
+                            <span key={slug} className="label text-content-muted">
+                              {slug.replace(/-/g, " ")}
+                            </span>
                           ))}
-                        </ul>
+                        </span>
+                      )}
+
+                      {i === activeIndex && industry.image && (
+                        <div className="pt-4 lg:hidden">
+                          <Media
+                            asset={industry.image}
+                            ratio={4 / 5}
+                            sizes="100vw"
+                          />
+                          {industry.image.visibility === "sector-reference" && (
+                            <p className="label mt-2 text-content-faint">
+                              {dictionary.home.industries.noProject}
+                            </p>
+                          )}
+                        </div>
                       )}
                     </div>
                   </div>
-                </div>
+                </button>
               </li>
             ))}
           </ul>
+
+          <div className="hidden lg:col-span-5 lg:block">
+            <div className="sticky top-28">
+              {active.image && (
+                <>
+                  <Media
+                    key={active.image.id}
+                    asset={active.image}
+                    ratio={4 / 5}
+                    sizes="(min-width: 1024px) 38vw, 0px"
+                  />
+                  {active.image.visibility === "sector-reference" && (
+                    <p className="label mt-3 text-content-faint">
+                      {dictionary.home.industries.noProject}
+                    </p>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -6,6 +6,7 @@
  */
 
 import type { Capability } from "@/types/portfolio";
+import { getAsset } from "@/data/assets";
 
 export const capabilities: Capability[] = [
   {
@@ -20,6 +21,7 @@ export const capabilities: Capability[] = [
       "Self-hosted infrastructure",
     ],
     relatedProjectSlugs: ["gym-tonic-app"],
+    image: getAsset("whatsapp-agent-flyer"),
     technical: true,
   },
   {
@@ -34,6 +36,7 @@ export const capabilities: Capability[] = [
       "Interface design",
     ],
     relatedProjectSlugs: ["gym-tonic-app", "vincxx"],
+    image: getAsset("personalize-your-app-flyer"),
   },
   {
     id: "hospitality-technology",
@@ -46,7 +49,8 @@ export const capabilities: Capability[] = [
       "Guest communication",
       "Venue digital presence",
     ],
-    relatedProjectSlugs: ["my-lounge-palmanova"],
+    relatedProjectSlugs: ["buborant", "my-lounge-palmanova", "mallorca-charter-experiences"],
+    image: getAsset("cocktail-menu-demo"),
   },
   {
     id: "brand-direction",
@@ -60,6 +64,7 @@ export const capabilities: Capability[] = [
       "Launch campaigns",
     ],
     relatedProjectSlugs: ["hybryd-mallorca", "reis-infinite-flavors", "ohlala-fashion"],
+    image: getAsset("business-bots-brand-elements"),
   },
   {
     id: "commercial-expansion",
@@ -72,18 +77,7 @@ export const capabilities: Capability[] = [
       "Sales and acquisition structure",
       "International positioning",
     ],
-  },
-  {
-    id: "strategic-consulting",
-    title: "Strategic Consulting",
-    description:
-      "Clarity before automation. Deciding what the business should do, in what order, before anything gets built.",
-    areas: [
-      "Operational diagnosis",
-      "Digital strategy",
-      "Roadmap and prioritisation",
-      "Build-or-buy decisions",
-    ],
-    technical: true,
+    relatedProjectSlugs: ["business-bots-solutions", "mallorca-charter-experiences"],
+    image: getAsset("business-bots-consultancy-flyer"),
   },
 ];

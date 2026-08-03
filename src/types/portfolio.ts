@@ -50,7 +50,7 @@ export type Industry =
   | "Food & Beverage"
   | "Luxury & Concierge"
   | "Fashion & Retail"
-  | "Legal Services"
+  | "Private Services"
   | "Beauty & Personal Care"
   | "Technology"
   | "Industrial";
@@ -156,10 +156,19 @@ export type AssetUsage =
   | "about-support"
   | "hospitality-systems"
   | "booking-interface"
-  | "archive-web-product";
+  | "archive-web-product"
+  | "industry-editorial"
+  | "expertise-editorial"
+  | "expertise-context"
+  | "personal-editorial"
+  | "international-context"
+  | "content-growth-editorial";
 export type AssetVisibility =
   | "public"
+  | "personal-public"
+  | "public-category"
   | "supporting"
+  | "sector-reference"
   | "contextual"
   | "internal-private"
   | "external-reference"
@@ -241,6 +250,7 @@ export interface Capability {
   /** Three or four concrete areas. No generic filler. */
   areas: string[];
   relatedProjectSlugs?: string[];
+  image?: ImageAsset;
   /** Enables the hexagon treatment for AI/automation/industrial contexts. */
   technical?: boolean;
 }

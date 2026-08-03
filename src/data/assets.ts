@@ -14,7 +14,9 @@ const rawImageAssets: ImageAsset[] = [
     src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773187052/4_v4ssug.png",
     alt: "HYBRYD Mallorca brand visual.",
     origin: "original-work",
-    usage: ["selected-work", "archive"],
+    usage: ["selected-work", "archive", "industry-editorial"],
+    visibility: "public-category",
+    category: "fitness-wellness",
     aspectRatio: 16 / 10,
     projectId: "hybryd-mallorca",
     featured: true,
@@ -86,8 +88,9 @@ const rawImageAssets: ImageAsset[] = [
     src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773741798/IMG_5324_jpo8lf.jpg",
     alt: "Private chef food presentation with refined plating.",
     origin: "operational-content",
-    usage: ["archive"],
-    visibility: "public",
+    usage: ["archive", "industry-editorial"],
+    visibility: "public-category",
+    category: "food-beverage",
     aspectRatio: 4 / 3,
     projectId: "reis-infinite-flavors",
   },
@@ -289,7 +292,9 @@ const rawImageAssets: ImageAsset[] = [
     src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773081474/IMG_4909_heoxhm.jpg",
     alt: "Lifestyle image from a marine charter experience.",
     origin: "operational-content",
-    usage: ["archive"],
+    usage: ["archive", "industry-editorial"],
+    visibility: "public-category",
+    category: "luxury-concierge",
     aspectRatio: 4 / 5,
     projectId: "mallorca-charter-experiences",
   },
@@ -308,8 +313,8 @@ const rawImageAssets: ImageAsset[] = [
     src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773187262/Consultancy_2_pw5c6z.png",
     alt: "Business Bots consultancy flyer with meeting invitation and red phone visual.",
     origin: "original-work",
-    usage: ["business-bots-gallery", "archive-campaigns", "about-support", "archive"],
-    visibility: "public",
+    usage: ["business-bots-gallery", "archive-campaigns", "about-support", "archive", "expertise-editorial"],
+    visibility: "public-category",
     category: "business-development",
     aspectRatio: 4 / 5,
     projectId: "business-bots-solutions",
@@ -334,12 +339,48 @@ const rawImageAssets: ImageAsset[] = [
     src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1772973944/Screenshot_2026-03-08_at_13.44.34_iwycls.png",
     alt: "Dubai nightlife booking interface concept from the Business Bots ecosystem.",
     origin: "original-work",
-    usage: ["archive"],
-    visibility: "public",
-    category: "Hospitality Technology",
+    usage: ["archive", "industry-editorial"],
+    visibility: "public-category",
+    category: "hospitality",
     aspectRatio: 16 / 10,
     projectId: "business-bots-solutions",
-    notes: "Prototype or visual concept, not presented as a confirmed live client project.",
+    notes:
+      "Category representation only; not assigned as a My Lounge, Buborant or Bubó project cover.",
+  },
+  {
+    id: "real-estate-editorial-architecture",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1784667582/e50659b3-11e9-4d4e-8ca6-1b12a782bc19_ig4yi6.jpg",
+    alt: "Architecture editorial reference for real-estate positioning and trust-led property markets.",
+    origin: "visual-reference",
+    usage: ["industry-editorial"],
+    visibility: "sector-reference",
+    category: "real-estate",
+    aspectRatio: 4 / 5,
+    featured: true,
+    credit: "Sector reference, not presented as a Rodrigo or Jérémy project asset.",
+  },
+  {
+    id: "beauty-personal-care-editorial",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1785795553/Luxury_Skincare_Serum_Photography_Inspiration_for_Glowing_Skin_vfwuh7.jpg",
+    alt: "Skincare serum editorial reference for beauty and personal-care booking experiences.",
+    origin: "visual-reference",
+    usage: ["industry-editorial"],
+    visibility: "sector-reference",
+    category: "beauty-personal-care",
+    aspectRatio: 4 / 5,
+    featured: true,
+    credit: "Sector reference; no completed beauty project implied.",
+  },
+  {
+    id: "personal-lifestyle-hero",
+    src: "https://res.cloudinary.com/dxhef6dju/image/upload/v1785248991/IMG_8748_b4bch4.jpg",
+    alt: "Personal lifestyle portrait for Elias J. Perez editorial sections.",
+    origin: "original-work",
+    usage: ["personal-editorial"],
+    visibility: "personal-public",
+    category: "personal-brand",
+    aspectRatio: 4 / 5,
+    featured: true,
   },
   {
     id: "business-bots-automation",
@@ -357,9 +398,9 @@ const rawImageAssets: ImageAsset[] = [
     src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773099488/Screenshot_2025-12-01_at_13.42.12_gojw8e.png",
     alt: "Business Bots Solutions identity screenshot.",
     origin: "original-work",
-    usage: ["archive"],
-    visibility: "supporting",
-    category: "Brand Systems",
+    usage: ["archive", "expertise-editorial"],
+    visibility: "public-category",
+    category: "brand-creative-direction",
     aspectRatio: 16 / 10,
     projectId: "business-bots-solutions",
   },
@@ -535,9 +576,9 @@ const rawImageAssets: ImageAsset[] = [
     src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773099511/7_piitvm.png",
     alt: "Personalize your app campaign flyer.",
     origin: "original-work",
-    usage: ["archive"],
-    visibility: "supporting",
-    category: "Content and Growth",
+    usage: ["archive", "expertise-editorial"],
+    visibility: "public-category",
+    category: "digital-products",
     aspectRatio: 4 / 5,
     treatment: "contained-portrait",
   },
@@ -557,9 +598,9 @@ const rawImageAssets: ImageAsset[] = [
     src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1773099526/1_op0rko.png",
     alt: "WhatsApp agent automation flyer.",
     origin: "original-work",
-    usage: ["archive"],
-    visibility: "supporting",
-    category: "Business Automation",
+    usage: ["archive", "expertise-editorial"],
+    visibility: "public-category",
+    category: "ai-automation",
     aspectRatio: 4 / 5,
     treatment: "contained-portrait",
   },
@@ -568,9 +609,9 @@ const rawImageAssets: ImageAsset[] = [
     src: "https://res.cloudinary.com/ddjl4shzl/image/upload/v1772960086/Screenshot_2026-03-08_at_09.48.09_qhldai.png",
     alt: "Interactive cocktail menu prototype interface.",
     origin: "original-work",
-    usage: ["archive"],
-    visibility: "supporting",
-    category: "Hospitality Technology",
+    usage: ["archive", "expertise-editorial"],
+    visibility: "public-category",
+    category: "hospitality-technology",
     aspectRatio: 16 / 10,
   },
   {
@@ -652,11 +693,13 @@ const rawImageAssets: ImageAsset[] = [
   {
     id: "stock-wellness-01",
     src: "https://res.cloudinary.com/dspv9l3vn/image/upload/v1768645979/__-_2026-01-17T113246.558_emcbur.jpg",
-    alt: "Reformer pilates studio interior.",
+    alt: "Private services sector reference for wellness, consultation and bespoke service positioning.",
     origin: "licensed-stock",
-    usage: ["industry"],
+    usage: ["industry", "industry-editorial"],
     aspectRatio: 3 / 2,
-    visibility: "contextual",
+    visibility: "sector-reference",
+    category: "private-services",
+    credit: "Sector reference; no published project implied.",
   },
   {
     id: "stock-wellness-02",
@@ -694,10 +737,19 @@ const rawImageAssets: ImageAsset[] = [
 
 export const imageAssets: ImageAsset[] = rawImageAssets.map((asset) => {
   if (asset.id === "portrait") return asset;
+  if (
+    asset.visibility === "personal-public" ||
+    asset.visibility === "public-category" ||
+    asset.visibility === "sector-reference" ||
+    asset.visibility === "supporting" ||
+    asset.visibility === "contextual" ||
+    asset.visibility === "excluded"
+  ) {
+    return asset;
+  }
   if (asset.visibility === "external-reference" || asset.origin === "visual-reference") {
     return { ...asset, visibility: "external-reference" };
   }
-  if (asset.visibility === "excluded") return asset;
   return { ...asset, visibility: "internal-reference" };
 });
 
@@ -855,8 +907,15 @@ export const collections: AssetCollection[] = [
   },
 ];
 
-const publicAssetVisibilities = new Set(["public", "supporting", "contextual", undefined]);
-const isPublicAsset = (asset: ImageAsset) => publicAssetVisibilities.has(asset.visibility);
+const publicAssetVisibilities = new Set<NonNullable<ImageAsset["visibility"]>>([
+  "personal-public",
+  "public-category",
+  "supporting",
+  "sector-reference",
+  "contextual",
+]);
+const isPublicAsset = (asset: ImageAsset) =>
+  asset.visibility ? publicAssetVisibilities.has(asset.visibility) : false;
 
 export const archiveCollections = collections.filter((collection) => collection.archiveVisible);
 export const projectAssets = imageAssets.filter((asset) =>

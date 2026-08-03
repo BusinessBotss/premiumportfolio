@@ -1,13 +1,15 @@
-import Link from "next/link";
+"use client";
+
+import { useState } from "react";
 import { HexagonBackground } from "@/components/motion/hexagon-background";
 import { Reveal } from "@/components/motion/reveal";
+import { Media } from "@/components/ui/media";
 import { Section } from "@/components/ui/section";
 import { capabilities } from "@/data/capabilities";
 import { getProject } from "@/data/projects";
 import type { Locale } from "@/i18n/config";
 import type { AppDictionary } from "@/i18n/dictionaries";
 import { localizeCapability } from "@/i18n/localized-content";
-import { withLocale } from "@/i18n/routing";
 import { pad } from "@/lib/utils";
 
 /**
@@ -27,6 +29,8 @@ const SPANS = [
 
 export function Capabilities({ locale, dictionary }: { locale: Locale; dictionary: AppDictionary }) {
   const localizedCapabilities = capabilities.map((capability) => localizeCapability(capability, locale));
+  const [activeIndex, setActiveIndex] = useState(0);
+  const active = localizedCapabilities[activeIndex];
 
   return (
     <Section id="capabilities" scheme="dark">
@@ -40,15 +44,22 @@ export function Capabilities({ locale, dictionary }: { locale: Locale; dictionar
           </h2>
         </div>
 
-        <div className="grid gap-px overflow-hidden border border-rule bg-rule lg:grid-cols-6">
-          {localizedCapabilities.map((capability, i) => (
-            <Reveal
-              key={capability.id}
-              delay={(i % 3) * 0.06}
-              className={`${SPANS[i % SPANS.length]} bg-surface`}
-            >
-              <div className="relative isolate flex h-full flex-col gap-6 p-8 md:p-10">
-                {capability.technical && <HexagonBackground opacity={0.35} />}
+        <div className="grid gap-8 lg:grid-cols-12">
+          <div className="grid gap-px overflow-hidden border border-rule bg-rule lg:col-span-7 lg:grid-cols-6">
+            {localizedCapabilities.map((capability, i) => (
+              <Reveal
+                key={capability.id}
+                delay={(i % 3) * 0.06}
+                className={`${SPANS[i % SPANS.length]} bg-surface`}
+              >
+                <button
+                  type="button"
+                  aria-pressed={i === activeIndex}
+                  onClick={() => setActiveIndex(i)}
+                  onFocus={() => setActiveIndex(i)}
+                  className="relative isolate flex h-full flex-col gap-6 p-8 text-left transition-colors hover:bg-surface/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent md:p-10"
+                >
+                  {capability.technical && <HexagonBackground opacity={0.35} />}
 
                 <div className="flex items-baseline gap-4">
                   <span className="label text-content-faint">{pad(i + 1)}</span>
@@ -73,26 +84,41 @@ export function Capabilities({ locale, dictionary }: { locale: Locale; dictionar
                 </ul>
 
                 {capability.relatedProjectSlugs && (
-                  <ul className="flex flex-wrap gap-x-4 gap-y-1 border-t border-rule pt-4">
+                  <span className="flex flex-wrap gap-x-4 gap-y-1 border-t border-rule pt-4">
                     {capability.relatedProjectSlugs.map((slug) => {
                       const project = getProject(slug);
                       if (!project) return null;
                       return (
-                        <li key={slug}>
-                          <Link
-                            href={withLocale(locale, `/work/${slug}`)}
-                            className="label text-content-muted underline-offset-4 transition-colors hover:text-accent hover:underline"
-                          >
-                            {project.title}
-                          </Link>
-                        </li>
+                        <span key={slug} className="label text-content-muted">
+                          {project.title}
+                        </span>
                       );
                     })}
-                  </ul>
+                  </span>
                 )}
+                </button>
+              </Reveal>
+            ))}
+          </div>
+
+          <div className="lg:col-span-5">
+            <div className="sticky top-28 flex flex-col gap-4">
+              {active.image && (
+                <Media
+                  key={active.image.id}
+                  asset={active.image}
+                  ratio={active.image.treatment === "contained-portrait" ? 4 / 5 : 4 / 5}
+                  sizes="(min-width: 1024px) 38vw, 100vw"
+                />
+              )}
+              <div className="border-t border-rule pt-4">
+                <span className="label text-content-faint">{active.title}</span>
+                <p className="mt-2 text-sm leading-relaxed text-content-muted">
+                  {active.description}
+                </p>
               </div>
-            </Reveal>
-          ))}
+            </div>
+          </div>
         </div>
       </div>
     </Section>

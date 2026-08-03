@@ -150,7 +150,8 @@ export function Media({
           imageClassName,
         )}
         style={{
-          objectPosition: asset.focus === "face" ? "center 22%" : undefined,
+          objectPosition:
+            asset.focalPosition ?? (asset.focus === "face" ? "center 22%" : undefined),
         }}
       />
     </div>
